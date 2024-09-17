@@ -44,3 +44,19 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+# HoloPKU
+First put backend and frontend project directories together under one parent directory.
+```
+.
+├── holopku
+├── holopku-frontend
+```
+And then `cd holopku-frontend`, run the following command to update proto files.
+
+```bash
+PROTOS_DIR=../holopku/proto/api/v1
+protoc --proto_path=$PROTOS_DIR $(ls $PROTOS_DIR)\
+  --js_out=import_style=commonjs,binary:src/proto \
+  --grpc-web_out=import_style=typescript,mode=grpcweb:src/proto
+```
