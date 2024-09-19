@@ -2,10 +2,13 @@ import React, { useEffect, useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+
 import { AuthClient } from './proto/AuthServiceClientPb';
 import { ForumClient } from './proto/ForumServiceClientPb';
 import { LoginProvider, LoginRequest, RegisterRequest, User } from './proto/auth_pb';
 import AuthService from './components/auth/auth';
+import HelloService from './components/hello/hello';
 
 function App() {
   const [token, setToken] = useState<string | Uint8Array | null>(null);
@@ -17,6 +20,12 @@ function App() {
 
   return (
     <div className="App">
+      <BrowserRouter>
+        <Routes>
+          <Route path="/test/hello" element={<HelloService />} />
+        </Routes>
+      </BrowserRouter>
+
       <h1>My Web Application</h1>
       <AuthService onLoginSuccess={handleLoginSuccess} />
       {token && <p>Welcome, you are logged in!</p>}
