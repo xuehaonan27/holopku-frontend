@@ -1,0 +1,122 @@
+body {
+    margin: 0;
+    background-image: url(D:\Desktop\holopku\holopku-frontend\imgs\login.png);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    background-color: #464646;
+    }
+
+input {
+    font-size: 3em;
+    color: grey;
+    border: 2px solid #b31b07;
+    border-radius: 10px;
+    height: 15vh;
+    width: 55vw;
+  }
+  
+
+#usernameInput {
+    position: absolute;
+    left : 42.5vw;   
+    top : 35vh;
+}
+
+#passwordInput {
+    position: absolute;
+    left : 42.5vw;   
+    top : 54vh;
+}
+
+.submit {
+    position: absolute;
+    background: transparent;
+    padding: 0px;
+    border: none;
+    cursor: pointer;
+    transition: filter 250ms;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    left : 57.5vw;   
+    top : 80vh;
+    height : 15vh;
+    width: 20vw;
+  }
+  
+  .shadow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: hsl(226, 25%, 69%);
+    border-radius: 8px;
+    filter: blur(2px);
+    will-change: transform;
+    transform: translateY(2px);
+    transition: transform 600ms cubic-bezier(0.3, 0.7, 0.4, 1);
+  }
+  
+  .edge {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    border-radius: 8px;
+    background: linear-gradient(
+      to right,
+      hsl(248, 39%, 39%) 0%,
+      hsl(248, 39%, 49%) 8%,
+      hsl(248, 39%, 39%) 92%,
+      hsl(248, 39%, 29%) 100%
+    );
+  }
+  
+  .front {
+    display: block;
+    position: relative;
+    height: 90%;
+    width: 90%;
+    border-radius: 8px;
+    background: hsl(248, 53%, 58%);
+    padding: 16px 32px;
+    color: white;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-size: 4rem;
+    
+    transform: translateY(-4px);
+    transition: transform 600ms cubic-bezier(0.3, 0.7, 0.4, 1);
+  }
+  
+  .submit:hover {
+    filter: brightness(110%);
+  }
+  
+  .submit:hover .front {
+    transform: translateY(-6px);
+    transition: transform 250ms cubic-bezier(0.3, 0.7, 0.4, 1.5);
+  }
+  
+  .submit:active .front {
+    transform: translateY(-2px);
+    transition: transform 34ms;
+  }
+  
+  .submit:hover .shadow {
+    transform: translateY(4px);
+    transition: transform 250ms cubic-bezier(0.3, 0.7, 0.4, 1.5);
+  }
+  
+  .submit:active .shadow {
+    transform: translateY(1px);
+    transition: transform 34ms;
+  }
+  
+  .submit:focus:not(:focus-visible) {
+    outline: none;
+  }
+  

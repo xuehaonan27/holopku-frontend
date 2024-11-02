@@ -2,34 +2,37 @@ import React, { useEffect, useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom';
 
 import { AuthClient } from './proto/AuthServiceClientPb';
 import { ForumClient } from './proto/ForumServiceClientPb';
 import { LoginProvider, LoginRequest, RegisterRequest, User } from './proto/auth_pb';
 import AuthService from './components/auth/auth';
 import HelloService from './components/hello/hello';
+import ForumService from './components/forum/forum';
+import ShowFoodPost from './components/foodPost/foodPost';
 
 function App() {
   const [token, setToken] = useState<string | Uint8Array | null>(null);
 
   const handleLoginSuccess = (token: string | Uint8Array) => {
+    // const navigate = useNavigate();
     setToken(token);
     alert('Logged in with token: ' + token);
   };
 
   return (
     <div className="App">
+      
       <BrowserRouter>
         <Routes>
+          <Route path="/" element={<AuthService onLoginSuccess={handleLoginSuccess} />} />
           <Route path="/test/hello" element={<HelloService />} />
+          <Route path="/forum" element={<ForumService /> } />
+          <Route path="/forum/food/:index" element={<ShowFoodPost /> } />
+
         </Routes>
       </BrowserRouter>
-
-      <h1>My Web Application</h1>
-      <AuthService onLoginSuccess={handleLoginSuccess} />
-      {token && <p>Welcome, you are logged in!</p>}
-      {/* 其他组件 */}
     </div>
   );
 }
