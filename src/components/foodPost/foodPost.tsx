@@ -3,7 +3,8 @@ import { FoodPost, Place } from "../../proto/foodPost_pb";
 import { Post } from "../../proto/post_pb";
 import { ForumClient } from "../../proto/ForumServiceClientPb";
 import {GetPostRequest} from "../../proto/forum_pb";
-const client = new ForumClient("http://localhost:8080");
+import { useState } from "react";
+const client = new ForumClient("10.129.82.144:8080");
 
 const FoodPosts: FoodPost[] = [];
 const ShowFoodPost = () => {
@@ -45,14 +46,27 @@ const TestGetPost=()=>{
 const GetPost=()=>{
     const request=new GetPostRequest();
     request.setPostId(id);
+    const Post=new FoodPost();
+    const [state,setState]=useState(false);
+    const [post,setPost]=useState(Post);
     client.getFoodPost(request,{},(err,response)=>{
         if(err){
             console.log(err);
         }else{
             
-            return response.getSuccess()?<ShowPost foodPost={response.getPost()!} />:<div>Post not found</div>;
+           if(response.getSuccess()){
+                setPost(response.getPost()!);
+                setState(true);
+           };
         }
     })
+    return <div>
+        {state ? (
+            <ShowPost foodPost={post} />
+        ) : (
+            <div>Post not found</div>
+        )}
+    </div>
 }
 const ShowPost=({foodPost}:{foodPost:FoodPost})=>{//展示帖子
     return <div className="FoodPost">
@@ -69,6 +83,6 @@ const ShowPost=({foodPost}:{foodPost:FoodPost})=>{//展示帖子
         
         </div>
 }
-    return <TestGetPost />
+    return <GetPost />
 }
 export default ShowFoodPost;

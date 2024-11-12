@@ -4,7 +4,7 @@ import { AuthClient } from "../../proto/AuthServiceClientPb";
 import { useNavigate } from "react-router-dom";
 //import "./auth.css";
 
-const client = new AuthClient("http://localhost:8080", null, null);
+const client = new AuthClient("10.129.82.144:8080", null, null);
 
 const AuthService = ({ onLoginSuccess }: { onLoginSuccess: (token: string | Uint8Array) => void }) => {
   const [showLogin, setShowLogin] = useState(false);

@@ -8,7 +8,7 @@ import { Post } from "../../proto/post_pb";
 import { ListAmusementPostsRequest, ListFoodPostsRequest, ListSellPostsRequest } from "../../proto/forum_pb";
 import { BrowserRouter, Route, Routes, useNavigate, useParams } from 'react-router-dom';
 
-const client = new ForumClient("http://localhost:8080");
+const client = new ForumClient("10.129.82.144:8080");
 const ForumService = () => {
 const FoodPosts: FoodPost[] = [];
 const SellPosts: SellPost[] = [];
@@ -110,15 +110,34 @@ const ListPostsTest = () => {
     foodPost2.setScore(4);
     FoodPosts.push(foodPost1);
     FoodPosts.push(foodPost2);
+    const[open,setOpen] = useState(false);
     return <div>
         {FoodPosts.map((post) => {
             return <div key={post.getPost()?.getId()} onClick={() => Navigate("food", post.getPost()?.getId()!)}>
                 {post.getPost()?.getTitle()}</div>
         })}
+        <button onClick={()=>setOpen(true)}>打开输入框</button>
+        <Modal isOpen={open} onConfirm={()=>setOpen(false)} />
     </div>
 }
 
 
+const Modal = ({ isOpen, onConfirm }: {isOpen:boolean;onConfirm:()=>void}) => {
+  if (!isOpen) return null;
+
+  return (
+    <div className="modal-overlay">
+      <div className="modal">
+        <h2>输入文本</h2>
+        <input
+          type="text"
+        />
+        <button onClick={onConfirm}>确认</button>
+        <button >关闭</button>
+      </div>
+    </div>
+  );
+};
 
     return <div>
         <ListPostsTest />
