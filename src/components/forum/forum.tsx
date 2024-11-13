@@ -5,7 +5,7 @@ import { FoodPost, Place } from "../../proto/foodPost_pb";
 import { SellPost,GoodsType } from "../../proto/sellPost_pb";
 import { AmusementPost,GameType } from "../../proto/amusementPost_pb";
 import { Post } from "../../proto/post_pb";
-import { ListAmusementPostsRequest, ListFoodPostsRequest, ListSellPostsRequest } from "../../proto/forum_pb";
+import { CreateFoodPostRequest, ListAmusementPostsRequest, ListFoodPostsRequest, ListSellPostsRequest } from "../../proto/forum_pb";
 import { BrowserRouter, Route, Routes, useNavigate, useParams } from 'react-router-dom';
 
 const client = new ForumClient("10.129.82.144:8080");
@@ -13,6 +13,8 @@ const ForumService = () => {
 const FoodPosts: FoodPost[] = [];
 const SellPosts: SellPost[] = [];
 const AmusementPosts: AmusementPost[] = [];
+const[showCreate,setShowCreate] = useState(false);
+const[newContent,setNewContent] = useState("");
 const navigate = useNavigate();
 
 const ListFoodPosts = () => {
@@ -87,7 +89,7 @@ const ListAmusementPosts = () => {
 }
 
 const Navigate = (type:string, id:number) => {
-    navigate(`/forum/${type}/${id}`, { state: { id: id } });
+    navigate(`/${type}/${id}`, { state: { id: id } });
 }
 
 const ListPostsTest = () => {
@@ -110,37 +112,66 @@ const ListPostsTest = () => {
     foodPost2.setScore(4);
     FoodPosts.push(foodPost1);
     FoodPosts.push(foodPost2);
-    const[open,setOpen] = useState(false);
     return <div>
         {FoodPosts.map((post) => {
             return <div key={post.getPost()?.getId()} onClick={() => Navigate("food", post.getPost()?.getId()!)}>
                 {post.getPost()?.getTitle()}</div>
         })}
-        <button onClick={()=>setOpen(true)}>打开输入框</button>
-        <Modal isOpen={open} onConfirm={()=>setOpen(false)} />
     </div>
 }
 
 
-const Modal = ({ isOpen, onConfirm }: {isOpen:boolean;onConfirm:()=>void}) => {
-  if (!isOpen) return null;
+// const CreatePost = ({ isOpen, Submit, onClose }: {isOpen:boolean;Submit:()=>void;onClose:()=>void}) => {
+//   if (!isOpen) return null;
 
-  return (
-    <div className="modal-overlay">
-      <div className="modal">
-        <h2>输入文本</h2>
-        <input
-          type="text"
-        />
-        <button onClick={onConfirm}>确认</button>
-        <button >关闭</button>
-      </div>
-    </div>
-  );
-};
+//   return (
+//       <div className="create">
+//         <h2>输入文本</h2>
+//         <input
+//           type="text"
+//             placeholder="文本"
+//             value={newContent}
+//             onChange={(e) => setNewContent(e.target.value)}
+//         />
+//         <button onClick={Submit}>确认</button>
+//         <button >关闭</button>
+//       </div>
+//   );
+// };
+const Submit = ({content}: {content: string}) => {
+    const post=new Post();
+    post.setContent(content);
+    const foodPost=new FoodPost();
+    foodPost.setPost(post);
+    foodPost.setPlace(Place.JIAYUAN);
+    foodPost.setScore(5);
+    const request=new CreateFoodPostRequest();
+    request.setPost(foodPost);
+    client.createFoodPost(request,{},(err,response) => {
+        if(err){
+            console.log(err);
+        }else{
+            console.log(response.getSuccess());
+        }
+    });
+}
 
     return <div>
-        <ListPostsTest />
+        {/* <ListPostsTest /> */}
+        <button onClick={()=>navigate("/food")}>Food</button>
+        <button onClick={()=>navigate("/sell")}>Sell</button>
+        <button onClick={()=>navigate("/Amusement")}>Amusement</button>
+        {/* <button onClick={()=>setShowCreate(true)}>发布新帖子</button>
+        {showCreate &&(<div className="create">
+        <input
+          type="text"
+            placeholder="输入内容"
+            value={newContent}
+            onChange={(e) => setNewContent(e.target.value)}
+        />
+        <button onClick={() => Submit({ content: newContent })}>确认</button>
+        <button >关闭</button>
+      </div>)} */}
     </div>
 }
 export default ForumService;

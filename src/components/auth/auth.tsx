@@ -40,7 +40,7 @@ const AuthService = ({ onLoginSuccess }: { onLoginSuccess: (token: string | Uint
 
   const handleSubmitTest = () => {
     onLoginSuccess("test token");
-    navigate('/forum');
+    navigate('/home');
   }
 
   return (

@@ -11,6 +11,7 @@ import AuthService from './components/auth/auth';
 import HelloService from './components/hello/hello';
 import ForumService from './components/forum/forum';
 import ShowFoodPost from './components/foodPost/foodPost';
+import FoodList from './components/foodPostList/foodPostList';
 
 function App() {
   const [token, setToken] = useState<string | Uint8Array | null>(null);
@@ -28,8 +29,9 @@ function App() {
         <Routes>
           <Route path="/" element={<AuthService onLoginSuccess={handleLoginSuccess} />} />
           <Route path="/test/hello" element={<HelloService />} />
-          <Route path="/forum" element={<ForumService /> } />
-          <Route path="/forum/food/:index" element={<ShowFoodPost /> } />
+          <Route path="/home" element={<ForumService /> } />
+          <Route path="/food" element={<FoodList /> } />
+          <Route path="/food/:index" element={<ShowFoodPost /> } />
 
         </Routes>
       </BrowserRouter>
