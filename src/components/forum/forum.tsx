@@ -160,7 +160,7 @@ const Submit = ({content}: {content: string}) => {
         {/* <ListPostsTest /> */}
         <button onClick={()=>navigate("/food")}>Food</button>
         <button onClick={()=>navigate("/sell")}>Sell</button>
-        <button onClick={()=>navigate("/Amusement")}>Amusement</button>
+        <button onClick={()=>navigate("/amuse")}>Amusement</button>
         {/* <button onClick={()=>setShowCreate(true)}>发布新帖子</button>
         {showCreate &&(<div className="create">
         <input

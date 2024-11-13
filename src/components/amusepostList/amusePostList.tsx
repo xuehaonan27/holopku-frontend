@@ -1,43 +1,38 @@
 import  "../../proto/forum_pb";
 import { useState } from "react";
 import { ForumClient } from "../../proto/ForumServiceClientPb";
-import { FoodPost, Place } from "../../proto/foodPost_pb"; 
-import { SellPost,GoodsType } from "../../proto/sellPost_pb";
 import { AmusementPost,GameType } from "../../proto/amusementPost_pb";
 import { Post } from "../../proto/post_pb";
-import { CreateFoodPostRequest, ListAmusementPostsRequest, ListFoodPostsRequest, ListSellPostsRequest } from "../../proto/forum_pb";
+import { CreateAmusementPostRequest, ListAmusementPostsRequest } from "../../proto/forum_pb";
 import { BrowserRouter, Route, Routes, useNavigate, useParams } from 'react-router-dom';
 const client = new ForumClient("10.129.82.144:8080");
 
-const FoodList = () => {
-    const FoodPosts: FoodPost[] = [];
+const AmusementList = () => {
+    const AmusementPosts: AmusementPost[] = [];
     const[showCreate,setShowCreate] = useState(false);
     const[newContent,setNewContent] = useState("");
     const navigate = useNavigate();
 
     const Navigate = (id:number) => {
-        navigate(`/food/${id}`, { state: { id: id } });
+        navigate(`/amuse/${id}`, { state: { id: id } });
     }
 
-    const ListPosts = () => {
-        FoodPosts.length = 0;
-        const [foodPosts, setFoodPosts] = useState(FoodPosts);
-        const request = new ListFoodPostsRequest();
-        request.setFoodPlace(Place.JIAYUAN);
-        request.setScoreLowbond(0);
-        request.setRandom(false);
-        request.setNumber(10);
-        client.listFoodPosts(request, {}, (err, response) => {
+    const ListAmusementPosts = () => {
+        AmusementPosts.length = 0;
+        const [amusementPosts, setAmusementPosts] = useState(AmusementPosts);
+        const request = new ListAmusementPostsRequest();
+        //setRequest
+        client.listAmusementPosts(request, {}, (err, response) => {
             if (err) {
                 console.log(err);
             } else {
-                setFoodPosts(response.getPostsList());
+                setAmusementPosts(response.getPostsList());
             }
         });
-        FoodPosts.push(...foodPosts);
+        AmusementPosts.push(...amusementPosts);
     
         return <div>
-        {FoodPosts.map((post) => {
+        {AmusementPosts.map((post) => {
             return <div key={post.getPost()?.getId()} onClick={() => Navigate(post.getPost()?.getId()!)}>
                 {post.getPost()?.getTitle()}</div>
         })}
@@ -45,7 +40,7 @@ const FoodList = () => {
     }
 
     const ListPostsTest = () => {
-        FoodPosts.length = 0;
+        AmusementPosts.length = 0;
         const post1= new Post();
         post1.setTitle("test1");
         post1.setContent("test1");
@@ -54,18 +49,14 @@ const FoodList = () => {
         post2.setTitle("test2");
         post2.setContent("test2");
         post2.setId(1);
-        const foodPost1 = new FoodPost();
-        foodPost1.setPost(post1);
-        foodPost1.setPlace(Place.JIAYUAN);
-        foodPost1.setScore(5);
-        const foodPost2 = new FoodPost();
-        foodPost2.setPost(post2);
-        foodPost2.setPlace(Place.JIAYUAN);
-        foodPost2.setScore(4);
-        FoodPosts.push(foodPost1);
-        FoodPosts.push(foodPost2);
+        const amusementPost1 = new AmusementPost();
+        amusementPost1.setPost(post1);
+        const amusementPost2 = new AmusementPost();
+        amusementPost2.setPost(post2);
+        AmusementPosts.push(amusementPost1);
+        AmusementPosts.push(amusementPost2);
         return <div>
-            {FoodPosts.map((post) => {
+            {AmusementPosts.map((post) => {
                 return <div key={post.getPost()?.getId()} onClick={() => Navigate(post.getPost()?.getId()!)}>
                     {post.getPost()?.getTitle()}</div>
             })}
@@ -75,13 +66,11 @@ const FoodList = () => {
     const Submit = ({content}: {content: string}) => {
         const post=new Post();
         post.setContent(content);
-        const foodPost=new FoodPost();
-        foodPost.setPost(post);
-        foodPost.setPlace(Place.JIAYUAN);
-        foodPost.setScore(5);
-        const request=new CreateFoodPostRequest();
-        request.setPost(foodPost);
-        client.createFoodPost(request,{},(err,response) => {
+        const amusementPost=new AmusementPost();
+        amusementPost.setPost(post);
+        const request=new CreateAmusementPostRequest();
+        request.setPost(amusementPost);
+        client.createAmusementPost(request,{},(err,response) => {
             if(err){
                 console.log(err);
             }else{
@@ -89,7 +78,6 @@ const FoodList = () => {
             }
         });
     }
-
 
     return <div>
         <ListPostsTest />
@@ -108,4 +96,4 @@ const FoodList = () => {
     
 }
 
-export default FoodList;
+export default AmusementList;

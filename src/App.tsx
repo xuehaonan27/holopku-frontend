@@ -12,6 +12,10 @@ import HelloService from './components/hello/hello';
 import ForumService from './components/forum/forum';
 import ShowFoodPost from './components/foodPost/foodPost';
 import FoodList from './components/foodPostList/foodPostList';
+import SellList from './components/sellPostList/sellPostList';
+import ShowSellPost from './components/sellPost/sellPost';
+import ShowAmusementPost from './components/amusePost/amusePost';
+import AmusementList from './components/amusepostList/amusePostList';
 
 function App() {
   const [token, setToken] = useState<string | Uint8Array | null>(null);
@@ -32,6 +36,11 @@ function App() {
           <Route path="/home" element={<ForumService /> } />
           <Route path="/food" element={<FoodList /> } />
           <Route path="/food/:index" element={<ShowFoodPost /> } />
+          <Route path="/sell" element={<SellList /> } />
+          <Route path="/sell/:index" element={<ShowSellPost /> } />
+          <Route path="/amuse" element={<AmusementList /> } />
+          <Route path="/amuse/:index" element={<ShowAmusementPost /> } />
+
 
         </Routes>
       </BrowserRouter>

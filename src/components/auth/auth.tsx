@@ -29,7 +29,7 @@ const AuthService = ({ onLoginSuccess }: { onLoginSuccess: (token: string | Uint
       } else {
         setLoginStatus("Login success!");
         if (response.getSuccess()) {
-          navigate('/forum');
+          navigate('/home');
           onLoginSuccess(response.getToken());
           
         }
