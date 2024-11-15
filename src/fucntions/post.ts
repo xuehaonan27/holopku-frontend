@@ -1,5 +1,3 @@
-
-import { useNavigate } from 'react-router-dom';
 import { DeletePostRequest } from '../proto/forum_pb';
 import { ForumClient } from '../proto/ForumServiceClientPb';
 import { Post, PostType } from '../proto/post_pb';
@@ -25,10 +23,6 @@ export const initPost =({post,id,title,user_id,content,created_at,image}:
 
 }
 
-export const Navigate = (id:number) => {
-    const navigate = useNavigate();
-    navigate(`/food/${id}`, { state: { id: id } });
-}
 
 export const DeletePost=(id:number, client:ForumClient)=>{
     const request=new DeletePostRequest();

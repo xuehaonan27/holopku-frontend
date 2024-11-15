@@ -1,94 +1,117 @@
-import { useLocation, useParams } from "react-router-dom";
-import { SellPost,GoodsType } from "../../proto/sellPost_pb"; 
-import { Post } from "../../proto/post_pb";
+import { useLocation } from "react-router-dom";
+import { Comment } from "../../proto/post_pb";
 import { ForumClient } from "../../proto/ForumServiceClientPb";
 import {GetPostRequest} from "../../proto/forum_pb";
+import { User } from "../../proto/auth_pb";
 import { useState } from "react";
-const client = new ForumClient("10.129.82.144:8080");
+import { AuthClient } from "../../proto/AuthServiceClientPb";
+import { Submit,DeleteComment } from "../../fucntions/comment";
+import { SellPost,GoodsType } from "../../proto/sellPost_pb";
+const auth = new AuthClient("http://localhost:8080");
+const client = new ForumClient("http://localhost:8080");
 
-const SellPosts: SellPost[] = [];
-const ShowSellPost = ({token}:{token:string | Uint8Array}) => {
+const ShowFoodPost = ({token}:{token:string | Uint8Array}) => {
+    const myuser=new User();
+    const Comments:Comment[]=[];
+    const [comments,setComments]=useState(Comments);
+    const [content,setContent]=useState("");
+    const Post=new SellPost();
+    const [state,setState]=useState(false);
+    const [getPost,setGetPost]=useState(true);
+    const [post,setPost]=useState(Post);
     const location = useLocation();
     const id = location.state ? location.state.id: undefined;
-const GetPostTest=()=>{
-    SellPosts.length = 0;
-    const post1= new Post();
-    post1.setTitle("test1");
-    post1.setContent("test1");
-    post1.setUserId(0);
-    post1.setId(0);
-    const post2= new Post();
-    post2.setTitle("test2");
-    post2.setContent("test2");
-    post2.setId(1);
-    const SellPost1 =new SellPost();
-    const SellPost2 =new SellPost();
-    SellPost1.setPrice(0);
-    SellPost1.setType(GoodsType.COMPUTER);
-    SellPost1.setContact("a computer");
-    SellPost1.setPost(post1);
-    SellPost1.setSold(false);
 
-    SellPost2.setPrice(114514);
-    SellPost2.setType(GoodsType.TICKET);
-    SellPost2.setContact("a ticket");
-    SellPost2.setPost(post2);
-    SellPost2.setSold(true);
-
-    SellPosts.push(SellPost1);
-    SellPosts.push(SellPost2);
-    const sellPost=SellPosts[id];
-    return <div>
-        {sellPost ? (
-            <ShowPost SellPost={sellPost} />
-        ) : (
-            <div>Post not found</div>
-        )}
-    </div>
-}
+    const GetType=(type:number)=>{
+        switch(type){
+            case GoodsType.BOOK:
+                return "书籍";
+            case GoodsType.COMPUTER:
+                return "电子产品";
+            case GoodsType.TICKET:
+                return "票务";
+            case GoodsType.DISPLAY:
+                return "展示品";
+            case GoodsType.OTHER:
+                return "其他";
+            default:
+                return "其他";
+        }
+    }
+    
 
 const GetPost=()=>{
     const request=new GetPostRequest();
     request.setPostId(id);
-    const Post=new SellPost();
-    const [state,setState]=useState(false);
-    const [post,setPost]=useState(Post);
+    
     client.getSellPost(request,{},(err,response)=>{
         if(err){
             console.log(err);
+            setState(false);
         }else{
             
            if(response.getSuccess()){
                 setPost(response.getPost()!);
                 setState(true);
-           };
+                setComments(response.getPost()!.getPost()?.getCommentsList()!);
+           }else{
+                setState(false);
+           }
         }
     })
-    return <div>
-        {state ? (
-            <ShowPost SellPost={post} />
-        ) : (
-            <div>Post not found</div>
-        )}
-    </div>
 }
-const ShowPost=({SellPost}:{SellPost:SellPost})=>{//展示帖子
-    return <div className="SellPost">
-        <div className="title">
-            {SellPost.getContact()}
+
+if(getPost){
+    GetPost();
+   setGetPost(false);
+}
+
+    return <div>
+        <div className="SellPost">
+        <h2>{post.getPost()?.getTitle()}</h2>
+        <div className="content">
+            {post.getPost()?.getContent()}
         </div>
         <div className="type">
-            Type={SellPost.getType()}
+            商品类型:{GetType(post.getType())}
         </div>
         <div className="price">
-            Price={SellPost.getPrice()}
+            价格:{post.getPrice()}
         </div>
-        <div className="sold">
-         {(SellPost.getSold())?<div>在售</div>:<div>已售出</div>}
+        <div className="contact">
+            联系方式:{post.getContact()}
+        </div>
+        <div className="onSold">
+            {post.getSold()?"正在出售":"已售出"}
+        </div>
+        <div className="Comments">
+            <h2>评论区</h2>
+            {comments.map((comment) => {
+                return <div key={comment.getId()} >
+                    {comment.getContent()}
+                    {<button onClick={()=>{
+                        DeleteComment(id,comment.getId(),client)
+                        setGetPost(true);
+                    }}>删除评论</button>}
+                    </div>
+            })}
+        </div>    
         </div>
 
+        <div className="createComment"> 
+            <div className="inputContent">
+                <input
+                    type="text"
+                    placeholder="发条友善的评论吧"
+                    value={content}
+                    onChange={(e) => setContent(e.target.value)}
+                />
+            </div>
+        <button onClick={()=>{
+            Submit(id,content,client)
+            setGetPost(true);
+        }}>确认</button>
+      </div>
         </div>
 }
-    return <GetPostTest />
-}
-export default ShowSellPost;
+export default ShowFoodPost;

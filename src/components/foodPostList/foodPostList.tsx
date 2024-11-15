@@ -4,8 +4,9 @@ import { ForumClient } from "../../proto/ForumServiceClientPb";
 import { FoodPost, Place } from "../../proto/foodPost_pb"; 
 import { Post} from "../../proto/post_pb";
 import { CreateFoodPostRequest,ListFoodPostsRequest} from "../../proto/forum_pb";
-import { Navigate, DeletePost, initPost} from "../../fucntions/post";
+import { DeletePost, initPost} from "../../fucntions/post";
 import { Rate } from 'antd';
+import { useNavigate } from "react-router-dom";
 const client = new ForumClient("http://localhost:8080");
 
 const FoodList = ({token}:{token:string | Uint8Array}) => {
@@ -18,6 +19,7 @@ const FoodList = ({token}:{token:string | Uint8Array}) => {
     const [place,setPlace]=useState("");
     const [place1,setPlace1]=useState(Place.OTHER);
     const [getPost,setGetPost]=useState(true);
+    const navigate = useNavigate();
 
     const GetPlace=({place}:{place:string})=>{
         switch(place){
@@ -40,6 +42,11 @@ const FoodList = ({token}:{token:string | Uint8Array}) => {
         }
     }
 
+    
+    const Navigate = (id:number) => {
+                navigate(`/food/${id}`, { state: { id: id } });
+    }
+    
     const initFoodPost =({foodPost,post,place,score}:{foodPost:FoodPost,post:Post,place:Place,score:number})=>{
         foodPost.setPost(post);
         foodPost.setPlace(place);

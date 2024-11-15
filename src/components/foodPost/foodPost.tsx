@@ -86,7 +86,10 @@ if(getPost){
             {comments.map((comment) => {
                 return <div key={comment.getId()} >
                     {comment.getContent()}
-                    {<button onClick={()=>DeleteComment(id,comment.getId(),client)}>删除评论</button>}
+                    {<button onClick={
+                        ()=>{DeleteComment(id,comment.getId(),client)
+                        setGetPost(true);
+                    }}>删除评论</button>}
                     </div>
             })}
         </div>    
