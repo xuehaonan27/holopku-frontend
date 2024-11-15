@@ -1,6 +1,76 @@
-/* .food {
-    color:aquamarine;
-    background-color: black;
-    width: 10vw;
-    height: 10vh;
-} */
+/* styles.css */
+
+/* 设置基本的字体和背景 */
+body, html {
+    height: 100%;
+    margin: 0;
+    font-family: 'Arial', sans-serif; /* 使用Arial字体作为默认字体 */
+    background-image: url('../../../imgs/zhanwei.jpg'); /* 替换为你的背景图路径 */
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center; /* 确保文本居中 */
+  }
+  
+  /* 设置论坛容器的样式 */
+  .forum {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px; /* 给按钮之间增加一些间距 */
+  }
+  
+  /* 设置按钮的基本样式 */
+  button {
+    font-size: auto; /* 增加字体大小 */
+    font-weight: bold; /* 字体加粗 */
+    color: #fff; /* 设置字体颜色 */
+    background-size: cover;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    border-radius: 10px; /* 给按钮添加圆角 */
+    padding: 10px 20px; /* 增加内边距 */
+    height: 200px; /* 根据需要调整高度 */
+    width: 300px; /* 根据需要调整宽度 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 添加阴影效果 */
+    transition: transform 0.2s; /* 添加鼠标悬停时的变换效果 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-transform: uppercase; /* 将文本转换为大写 */
+  }
+  
+  button:hover {
+    transform: scale(1.05); /* 鼠标悬停时放大按钮 */
+  }
+  
+  /* 设置每个按钮的背景图 */
+  .food {
+    background-image: url('../../../imgs/zhanwei.jpg'); /* 替换为你的校园美食按钮背景图路径 */
+  }
+  
+  .sell {
+    background-image: url('../../../imgs/zhanwei.jpg'); /* 替换为你的交易信息按钮背景图路径 */
+  }
+  
+  .amuse {
+    background-image: url('../../../imgs/zhanwei.jpg'); /* 替换为你的校内外娱乐按钮背景图路径 */
+  }
+  
+  /* 使用Google字体，例如使用'Roboto'字体 */
+  @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+  
+  /* 将Roboto字体应用到按钮上 */
+  body, html {
+    font-family: 'Roboto', sans-serif;
+  }
+  
+  button {
+    font-family: 'Roboto', sans-serif;
+  }

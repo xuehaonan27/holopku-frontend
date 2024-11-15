@@ -15,9 +15,9 @@ const navigate = useNavigate();
 
 
     return <div className="forum">
-        <div><button className="food" onClick={()=>navigate("/food") }>Food</button></div>
-        <div><button className="sell" onClick={()=>navigate("/sell")}>Sell</button></div>
-        <div><button className="amuse" onClick={()=>navigate("/amuse")}>Amusement</button></div>
+        <div><button className="food" onClick={()=>navigate("/food") }>校园美食</button></div>
+        <div><button className="sell" onClick={()=>navigate("/sell")}>交易信息</button></div>
+        <div><button className="amuse" onClick={()=>navigate("/amuse")}>校内外娱乐</button></div>
     </div>
 }
 export default ForumService;

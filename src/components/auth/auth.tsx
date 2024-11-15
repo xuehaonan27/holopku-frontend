@@ -2,7 +2,7 @@ import { useState } from "react";
 import { LoginProvider, LoginRequest, User } from "../../proto/auth_pb";
 import { AuthClient } from "../../proto/AuthServiceClientPb";
 import { useNavigate } from "react-router-dom";
-//import "./auth.css";
+import "./auth.css";
 
 const client = new AuthClient("http://localhost:8080", null, null);
 

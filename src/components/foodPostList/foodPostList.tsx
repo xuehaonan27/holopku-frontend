@@ -7,6 +7,7 @@ import { CreateFoodPostRequest,ListFoodPostsRequest} from "../../proto/forum_pb"
 import { DeletePost, initPost} from "../../fucntions/post";
 import { Rate } from 'antd';
 import { useNavigate } from "react-router-dom";
+import "./foodPostList.css";
 const client = new ForumClient("http://localhost:8080");
 
 const FoodList = ({token}:{token:string | Uint8Array}) => {
@@ -54,22 +55,6 @@ const FoodList = ({token}:{token:string | Uint8Array}) => {
     }
     
 
-    const ShowPost=({foodPost}:{foodPost:FoodPost})=>{
-        return<div>
-            <div key={foodPost.getPost()?.getId()} onClick={() => Navigate(foodPost.getPost()?.getId()!)}>
-                <h2>{foodPost.getPost()?.getTitle()}</h2>
-                <div className="content">{foodPost.getPost()?.getTitle()}</div>
-                <div className="like">点赞数:{foodPost.getPost()!.getLikes()}</div>
-                <div className="favor">收藏数:{foodPost.getPost()!.getFavorates()}</div> 
-            </div>
-            <button className="delete" onClick={()=>{
-                DeletePost(foodPost.getPost()?.getId()!,client);
-                setGetPost(true);
-            }}>删除帖子</button>
-        </div> 
-        
-    }
-
     const GetPost=()=>{
         const request = new ListFoodPostsRequest();
         request.setScoreLowbond(0);
@@ -111,9 +96,20 @@ const FoodList = ({token}:{token:string | Uint8Array}) => {
 
     return <div>
         <div className="FoodPosts">
-        {foodPosts.map((post) => {
-            return <div key={post.getPost()!.getId()}>
-                <ShowPost foodPost={post}/>
+        {foodPosts.map((foodPost) => {
+            return <div key={foodPost.getPost()!.getId()}>
+                <div key={foodPost.getPost()?.getId()} onClick={() => Navigate(foodPost.getPost()?.getId()!)}>
+                <h2>{foodPost.getPost()?.getTitle()}</h2>
+                <div className="content">
+                    <p>{foodPost.getPost()?.getContent()}</p>
+                <p className="like">点赞数:{foodPost.getPost()!.getLikes()}</p>
+                <p className="favor">收藏数:{foodPost.getPost()!.getFavorates()}</p> 
+                </div>
+            </div>
+            <button className="delete" onClick={()=>{
+                DeletePost(foodPost.getPost()?.getId()!,client);
+                setGetPost(true);
+            }}>删除帖子</button>
                 </div>
         })}
         </div>
@@ -148,12 +144,12 @@ const FoodList = ({token}:{token:string | Uint8Array}) => {
                 <Rate value={score} onChange={(value)=>{setScore(value)}}/>
             </div>       
             <div className="content">
-                <input
-                    type="text"
-                    placeholder="输入内容"
-                    value={content}
-                    onChange={(e) => setContent(e.target.value)}
-                />
+            <textarea
+    placeholder="输入内容"
+    value={content}
+    onChange={(e) => setContent(e.target.value)}
+    rows={4} /* 初始行数 */
+  />
             </div>
             
         <button onClick={Submit}>确认</button>
