@@ -7,7 +7,7 @@ import { CreateAmusementPostRequest, ListAmusementPostsRequest } from "../../pro
 import { BrowserRouter, Route, Routes, useNavigate, useParams } from 'react-router-dom';
 const client = new ForumClient("10.129.82.144:8080");
 
-const AmusementList = () => {
+const AmusementList = ({token}:{token:string | Uint8Array}) => {
     const AmusementPosts: AmusementPost[] = [];
     const[showCreate,setShowCreate] = useState(false);
     const[newContent,setNewContent] = useState("");

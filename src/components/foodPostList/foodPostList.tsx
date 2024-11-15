@@ -2,83 +2,123 @@ import  "../../proto/forum_pb";
 import { useState } from "react";
 import { ForumClient } from "../../proto/ForumServiceClientPb";
 import { FoodPost, Place } from "../../proto/foodPost_pb"; 
-import { SellPost,GoodsType } from "../../proto/sellPost_pb";
-import { AmusementPost,GameType } from "../../proto/amusementPost_pb";
-import { Post } from "../../proto/post_pb";
-import { CreateFoodPostRequest, ListAmusementPostsRequest, ListFoodPostsRequest, ListSellPostsRequest } from "../../proto/forum_pb";
+import { Post, PostType } from "../../proto/post_pb";
+import { CreateFoodPostRequest,  DeletePostRequest,  ListFoodPostsRequest} from "../../proto/forum_pb";
 import { BrowserRouter, Route, Routes, useNavigate, useParams } from 'react-router-dom';
-const client = new ForumClient("10.129.82.144:8080");
+import { Rate } from 'antd';
+const client = new ForumClient("http://localhost:8080");
 
-const FoodList = () => {
+const FoodList = ({token}:{token:string | Uint8Array}) => {
     const FoodPosts: FoodPost[] = [];
     const[showCreate,setShowCreate] = useState(false);
-    const[newContent,setNewContent] = useState("");
+    const[title,setTitle] = useState("");
+    const [foodPosts, setFoodPosts] = useState(FoodPosts);
+    const[content,setContent] = useState("");
+    const[score,setScore] = useState(0);
+    const [place,setPlace]=useState("");
+    const [place1,setPlace1]=useState(Place.OTHER);
+    const [getPost,setGetPost]=useState(true);
+    const [showDelete,setShowDelete]=useState(false);
     const navigate = useNavigate();
+
+    const GetPlace=({place}:{place:string})=>{
+        switch(place){
+            case "JIAYUAN":
+                return Place.JIAYUAN;
+            case "YIYUAN":
+                return Place.YIYUAN;
+            case "YANNAN":
+                return Place.YANNAN;
+            case "NONGYUAN":
+                return Place.NONGYUAN;
+            case "XUEYI":
+                return Place.XUEYI;
+            case "XUEWU":
+                return Place.XUEWU;
+            case "OTHER":
+                return Place.OTHER;
+            default:
+                return Place.OTHER;
+        }
+    }
 
     const Navigate = (id:number) => {
         navigate(`/food/${id}`, { state: { id: id } });
     }
 
-    const ListPosts = () => {
-        FoodPosts.length = 0;
-        const [foodPosts, setFoodPosts] = useState(FoodPosts);
+    const DeletePost=(id:number)=>{
+        const request=new DeletePostRequest();
+        request.setPostId(id);
+        client.deletePost(request,{},(err,response)=>{
+            if(err){
+                console.log(err);
+            }else{
+                console.log(response.getSuccess());
+                setGetPost(true);
+            }
+        })
+    }
+    const ShowPost=({foodPost}:{foodPost:FoodPost})=>{
+        return<div>
+            <div key={foodPost.getPost()?.getId()} onClick={() => Navigate(foodPost.getPost()?.getId()!)}>
+                <h2>{foodPost.getPost()?.getTitle()}</h2>
+                <div className="content">{foodPost.getPost()?.getTitle()}</div>
+                <div className="like">点赞数:{foodPost.getPost()!.getLikes()}</div>
+                <div className="favor">收藏数:{foodPost.getPost()!.getFavorates()}</div> 
+            </div>
+            <button className="delete" onClick={()=>DeletePost(foodPost.getPost()?.getId()!)}>删除帖子</button>
+        </div> 
+        
+    }
+    const GetPost=()=>{
         const request = new ListFoodPostsRequest();
-        request.setFoodPlace(Place.JIAYUAN);
         request.setScoreLowbond(0);
         request.setRandom(false);
-        request.setNumber(10);
+        request.setNumber(5);
         client.listFoodPosts(request, {}, (err, response) => {
             if (err) {
                 console.log(err);
             } else {
                 setFoodPosts(response.getPostsList());
+                console.log(1);
             }
         });
-        FoodPosts.push(...foodPosts);
     
-        return <div>
-        {FoodPosts.map((post) => {
-            return <div key={post.getPost()?.getId()} onClick={() => Navigate(post.getPost()?.getId()!)}>
-                {post.getPost()?.getTitle()}</div>
-        })}
-    </div>
     }
 
-    const ListPostsTest = () => {
-        FoodPosts.length = 0;
-        const post1= new Post();
-        post1.setTitle("test1");
-        post1.setContent("test1");
-        post1.setId(0);
-        const post2= new Post();
-        post2.setTitle("test2");
-        post2.setContent("test2");
-        post2.setId(1);
-        const foodPost1 = new FoodPost();
-        foodPost1.setPost(post1);
-        foodPost1.setPlace(Place.JIAYUAN);
-        foodPost1.setScore(5);
-        const foodPost2 = new FoodPost();
-        foodPost2.setPost(post2);
-        foodPost2.setPlace(Place.JIAYUAN);
-        foodPost2.setScore(4);
-        FoodPosts.push(foodPost1);
-        FoodPosts.push(foodPost2);
-        return <div>
-            {FoodPosts.map((post) => {
-                return <div key={post.getPost()?.getId()} onClick={() => Navigate(post.getPost()?.getId()!)}>
-                    {post.getPost()?.getTitle()}</div>
-            })}
-        </div>
-    }
 
-    const Submit = ({content}: {content: string}) => {
-        const post=new Post();
+    const initPost =({post,id,title,user_id,content,created_at,image}:
+        {post:Post,
+        id:number,
+        title:string,
+        user_id:number,
+        content:string,
+        created_at:number,
+        image:string[]})=>{
+        post.setId(id);
+        post.setPostType(PostType.FOODPOST);
+        post.setLikes(0);
+        post.setFavorates(0);
+        post.setCommentsList([]);
+        post.setTitle(title);
+        post.setUserId(user_id);
         post.setContent(content);
-        const foodPost=new FoodPost();
+        post.setCreatedAt(created_at);
+        post.setImagesList(image);
+    
+    }
+    
+    const initFoodPost =({foodPost,post,place,score}:{foodPost:FoodPost,post:Post,place:Place,score:number})=>{
         foodPost.setPost(post);
-        foodPost.setPlace(Place.JIAYUAN);
-        foodPost.setScore(5);
+        foodPost.setPlace(place);
+        foodPost.setScore(score);
+    }
+
+    const Submit = () => {
+        const post=new Post();
+        initPost({post:post,id:0,title:title,user_id:1,content:content,created_at:0,image:[]});
+        const foodPost=new FoodPost();
+        initFoodPost({foodPost:foodPost,post:post,place:place1,score:score});
         const request=new CreateFoodPostRequest();
         request.setPost(foodPost);
         client.createFoodPost(request,{},(err,response) => {
@@ -86,23 +126,66 @@ const FoodList = () => {
                 console.log(err);
             }else{
                 console.log(response.getSuccess());
+                setGetPost(true);
             }
         });
     }
 
+    if(getPost){
+        GetPost();
+        setGetPost(false);
+    }
+
 
     return <div>
-        <ListPostsTest />
+        <div className="FoodPosts">
+        {foodPosts.map((post) => {
+            return <div key={post.getPost()!.getId()}>
+                <ShowPost foodPost={post}/>
+                </div>
+        })}
+        </div>
+
         <button onClick={()=>setShowCreate(true)}>发布新帖子</button>
         {showCreate &&(<div className="create">
-        <input
-          type="text"
-            placeholder="输入内容"
-            value={newContent}
-            onChange={(e) => setNewContent(e.target.value)}
-        />
-        <button onClick={() => Submit({ content: newContent })}>确认</button>
-        <button >关闭</button>
+            
+            <div className="title">
+                <input
+                    type="text"
+                    placeholder="输入标题"
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                />
+            </div>
+            <div className="place">
+                请选择就餐地点
+            <select value={place} onChange={(e) => {
+                setPlace(e.target.value);
+                setPlace1(GetPlace({place:e.target.value}));
+            }}>
+            <option value="JIAYUAN">家园</option>
+            <option value="YIYUAN">艺园</option>
+            <option value="YANNAN">燕南</option>
+            <option value="NONGYUAN">农园</option>
+            <option value="XUEYI">学一</option>
+            <option value="XUEWU">学五</option>
+            <option value="OTHER">其他</option>
+            </select>
+            </div>
+            <div className="rate">
+                <Rate value={score} onChange={(value)=>{setScore(value)}}/>
+            </div>       
+            <div className="content">
+                <input
+                    type="text"
+                    placeholder="输入内容"
+                    value={content}
+                    onChange={(e) => setContent(e.target.value)}
+                />
+            </div>
+            
+        <button onClick={Submit}>确认</button>
+        <button onClick={()=>setShowCreate(false)}>关闭</button>
       </div>)}
     </div>
     

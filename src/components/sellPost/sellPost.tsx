@@ -7,7 +7,7 @@ import { useState } from "react";
 const client = new ForumClient("10.129.82.144:8080");
 
 const SellPosts: SellPost[] = [];
-const ShowSellPost = () => {
+const ShowSellPost = ({token}:{token:string | Uint8Array}) => {
     const location = useLocation();
     const id = location.state ? location.state.id: undefined;
 const GetPostTest=()=>{

@@ -8,7 +8,7 @@ import { CreateSellPostRequest, ListSellPostsRequest } from "../../proto/forum_p
 import { BrowserRouter, Route, Routes, useNavigate, useParams } from 'react-router-dom';
 const client = new ForumClient("10.129.82.144:8080");
 
-const SellList = () => {
+const SellList = ({token}:{token:string | Uint8Array}) => {
     const SellPosts: SellPost[] = [];
     const[showCreate,setShowCreate] = useState(false);
     const[newContent,setNewContent] = useState("");

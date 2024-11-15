@@ -1,87 +1,136 @@
 import { useLocation, useParams } from "react-router-dom";
 import { FoodPost, Place } from "../../proto/foodPost_pb"; 
-import { Post } from "../../proto/post_pb";
+import { Post, PostType, Comment } from "../../proto/post_pb";
 import { ForumClient } from "../../proto/ForumServiceClientPb";
-import {GetPostRequest} from "../../proto/forum_pb";
+import {CommentRequest, DeleteCommentRequest, GetPostRequest} from "../../proto/forum_pb";
+import { User,GetUserRequest } from "../../proto/auth_pb";
 import { useState } from "react";
-const client = new ForumClient("10.129.82.144:8080");
+import { AuthClient } from "../../proto/AuthServiceClientPb";
+const auth = new AuthClient("http://localhost:8080");
+const client = new ForumClient("http://localhost:8080");
 
-const ShowFoodPost = () => {
-    const FoodPosts: FoodPost[] = [];
+const ShowFoodPost = ({token}:{token:string | Uint8Array}) => {
+    const myuser=new User();
+    const Comments:Comment[]=[];
+    const [comments,setComments]=useState(Comments);
+    const [content,setContent]=useState("");
+    const [user,setUser]=useState(myuser);
+    const Post=new FoodPost();
+    const [state,setState]=useState(false);
+    const [getPost,setGetPost]=useState(true);
+    const [post,setPost]=useState(Post);
     const location = useLocation();
-    console.log(location.state);
     const id = location.state ? location.state.id: undefined;
-    console.log(location.state);
 
-const GetPostTest=()=>{
-    FoodPosts.length = 0;
-    const post1= new Post();
-    post1.setTitle("test1");
-    post1.setContent("test1");
-    post1.setUserId(0);
-    post1.setId(0);
-    const post2= new Post();
-    post2.setTitle("test2");
-    post2.setContent("test2");
-    post2.setId(1);
-    const foodPost1 = new FoodPost();
-    foodPost1.setPost(post1);
-    foodPost1.setPlace(Place.JIAYUAN);
-    foodPost1.setScore(5);
-    const foodPost2 = new FoodPost();
-    foodPost2.setPost(post2);
-    foodPost2.setPlace(Place.JIAYUAN);
-    foodPost2.setScore(4);
-    FoodPosts.push(foodPost1);
-    FoodPosts.push(foodPost2);
-    const foodPost=FoodPosts[id];
-    return <div>
-        {foodPost ? (
-            <ShowPost foodPost={foodPost} />
-        ) : (
-            <div>Post not found</div>
-        )}
-    </div>
-}
+const initComment =({comment,post_id,user_id,content,created_at}:{
+            comment:Comment,
+            id:number,
+            post_id:number,
+            user_id:number,
+            content:string,
+            created_at:number
+        })=>{
+            comment.setId(0);
+            comment.setPostId(post_id);
+            comment.setUserId(user_id);
+            comment.setContent(content);
+            comment.setLikes(0);
+            comment.setCreatedAt(created_at);
+    }
 
 const GetPost=()=>{
     const request=new GetPostRequest();
     request.setPostId(id);
-    const Post=new FoodPost();
-    const [state,setState]=useState(false);
-    const [post,setPost]=useState(Post);
+    
     client.getFoodPost(request,{},(err,response)=>{
         if(err){
             console.log(err);
+            setState(false);
         }else{
             
            if(response.getSuccess()){
                 setPost(response.getPost()!);
                 setState(true);
-           };
+                setComments(response.getPost()!.getPost()?.getCommentsList()!);
+           }else{
+                setState(false);
+           }
         }
     })
-    return <div>
-        {state ? (
-            <ShowPost foodPost={post} />
-        ) : (
-            <div>Post not found</div>
-        )}
-    </div>
 }
-const ShowPost=({foodPost}:{foodPost:FoodPost})=>{//展示帖子
-    return <div className="FoodPost">
-        <div className="title">
-            {foodPost.getPost()?.getContent()}
+
+const Submit=()=>{
+    const comment=new Comment();
+    initComment({comment:comment,id:0,post_id:id,user_id:1,content:content,created_at:0});
+    const request=new CommentRequest();
+    request.setContent(content);
+    request.setPostId(id);
+    request.setUserId(1);
+    client.comment(request,{},(err,response)=>{
+        if(err){
+            console.log(err);
+        }else{
+            console.log(response.getSuccess());
+            setGetPost(true);
+        }
+    });
+    console.log(comment.getContent());
+}
+
+// const DeleteComment=(id:number)=>{
+//     const request=new DeleteCommentRequest();
+//     request.setPostId(id);
+//     request.setUserId(1);
+//     request.setCommentId(id);
+//     client.deleteComment(request,{},(err,response)=>{
+//         if(err){
+//             console.log(err);
+//         }else{
+//             console.log(response.getSuccess());
+//             setGetPost(true);
+//         }
+//     });
+// }
+
+if(getPost){
+    GetPost();
+   setGetPost(false);
+}
+
+    return <div>
+        <div className="FoodPost">
+        <h2>{post.getPost()?.getTitle()}</h2>
+        <div className="content">
+            {post.getPost()?.getContent()}
         </div>
         <div className="Place">
-            {foodPost.getPlace()}
+            {post.getPlace()}
         </div>
         <div className="Score">
-            Score={foodPost.getScore()}
-        </div>      
+            Score={post.getScore()}
+        </div>  
+        <div className="Comments">
+            <h2>评论区</h2>
+            {comments.map((comment) => {
+                return <div key={comment.getId()} >
+                    {comment.getContent()}
+                    {/* <button onClick={()=>DeleteComment(comment.getId())}>删除评论</button> */}
+                    </div>
+            })}
+        </div>    
         </div>
-}
-    return <GetPostTest />
+
+        <div className="createComment"> 
+            <div className="inputContent">
+                <input
+                    type="text"
+                    placeholder="发条友善的评论吧"
+                    value={content}
+                    onChange={(e) => setContent(e.target.value)}
+                />
+            </div>
+        <button onClick={Submit}>确认</button>
+      </div>
+        </div>
 }
 export default ShowFoodPost;

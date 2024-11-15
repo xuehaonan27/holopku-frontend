@@ -19,7 +19,6 @@ import AmusementList from './components/amusepostList/amusePostList';
 
 function App() {
   const [token, setToken] = useState<string | Uint8Array | null>(null);
-
   const handleLoginSuccess = (token: string | Uint8Array) => {
     // const navigate = useNavigate();
     setToken(token);
@@ -33,13 +32,13 @@ function App() {
         <Routes>
           <Route path="/" element={<AuthService onLoginSuccess={handleLoginSuccess} />} />
           <Route path="/test/hello" element={<HelloService />} />
-          <Route path="/home" element={<ForumService /> } />
-          <Route path="/food" element={<FoodList /> } />
-          <Route path="/food/:index" element={<ShowFoodPost /> } />
-          <Route path="/sell" element={<SellList /> } />
-          <Route path="/sell/:index" element={<ShowSellPost /> } />
-          <Route path="/amuse" element={<AmusementList /> } />
-          <Route path="/amuse/:index" element={<ShowAmusementPost /> } />
+          <Route path="/home" element={<ForumService token={token!} />} />
+          <Route path="/food" element={<FoodList token={token!}/> } />
+          <Route path="/food/:index" element={<ShowFoodPost token={token!}/> } />
+          <Route path="/sell" element={<SellList token={token!}/> } />
+          <Route path="/sell/:index" element={<ShowSellPost token={token!}/> } />
+          <Route path="/amuse" element={<AmusementList token={token!}/> } />
+          <Route path="/amuse/:index" element={<ShowAmusementPost token={token!}/> } />
 
 
         </Routes>
