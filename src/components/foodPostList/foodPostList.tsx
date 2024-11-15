@@ -2,9 +2,9 @@ import  "../../proto/forum_pb";
 import { useState } from "react";
 import { ForumClient } from "../../proto/ForumServiceClientPb";
 import { FoodPost, Place } from "../../proto/foodPost_pb"; 
-import { Post, PostType } from "../../proto/post_pb";
-import { CreateFoodPostRequest,  DeletePostRequest,  ListFoodPostsRequest} from "../../proto/forum_pb";
-import { BrowserRouter, Route, Routes, useNavigate, useParams } from 'react-router-dom';
+import { Post} from "../../proto/post_pb";
+import { CreateFoodPostRequest,ListFoodPostsRequest} from "../../proto/forum_pb";
+import { Navigate, DeletePost, initPost} from "../../fucntions/post";
 import { Rate } from 'antd';
 const client = new ForumClient("http://localhost:8080");
 
@@ -18,8 +18,6 @@ const FoodList = ({token}:{token:string | Uint8Array}) => {
     const [place,setPlace]=useState("");
     const [place1,setPlace1]=useState(Place.OTHER);
     const [getPost,setGetPost]=useState(true);
-    const [showDelete,setShowDelete]=useState(false);
-    const navigate = useNavigate();
 
     const GetPlace=({place}:{place:string})=>{
         switch(place){
@@ -42,22 +40,13 @@ const FoodList = ({token}:{token:string | Uint8Array}) => {
         }
     }
 
-    const Navigate = (id:number) => {
-        navigate(`/food/${id}`, { state: { id: id } });
+    const initFoodPost =({foodPost,post,place,score}:{foodPost:FoodPost,post:Post,place:Place,score:number})=>{
+        foodPost.setPost(post);
+        foodPost.setPlace(place);
+        foodPost.setScore(score);
     }
+    
 
-    const DeletePost=(id:number)=>{
-        const request=new DeletePostRequest();
-        request.setPostId(id);
-        client.deletePost(request,{},(err,response)=>{
-            if(err){
-                console.log(err);
-            }else{
-                console.log(response.getSuccess());
-                setGetPost(true);
-            }
-        })
-    }
     const ShowPost=({foodPost}:{foodPost:FoodPost})=>{
         return<div>
             <div key={foodPost.getPost()?.getId()} onClick={() => Navigate(foodPost.getPost()?.getId()!)}>
@@ -66,10 +55,14 @@ const FoodList = ({token}:{token:string | Uint8Array}) => {
                 <div className="like">点赞数:{foodPost.getPost()!.getLikes()}</div>
                 <div className="favor">收藏数:{foodPost.getPost()!.getFavorates()}</div> 
             </div>
-            <button className="delete" onClick={()=>DeletePost(foodPost.getPost()?.getId()!)}>删除帖子</button>
+            <button className="delete" onClick={()=>{
+                DeletePost(foodPost.getPost()?.getId()!,client);
+                setGetPost(true);
+            }}>删除帖子</button>
         </div> 
         
     }
+
     const GetPost=()=>{
         const request = new ListFoodPostsRequest();
         request.setScoreLowbond(0);
@@ -84,34 +77,6 @@ const FoodList = ({token}:{token:string | Uint8Array}) => {
             }
         });
     
-    }
-
-
-    const initPost =({post,id,title,user_id,content,created_at,image}:
-        {post:Post,
-        id:number,
-        title:string,
-        user_id:number,
-        content:string,
-        created_at:number,
-        image:string[]})=>{
-        post.setId(id);
-        post.setPostType(PostType.FOODPOST);
-        post.setLikes(0);
-        post.setFavorates(0);
-        post.setCommentsList([]);
-        post.setTitle(title);
-        post.setUserId(user_id);
-        post.setContent(content);
-        post.setCreatedAt(created_at);
-        post.setImagesList(image);
-    
-    }
-    
-    const initFoodPost =({foodPost,post,place,score}:{foodPost:FoodPost,post:Post,place:Place,score:number})=>{
-        foodPost.setPost(post);
-        foodPost.setPlace(place);
-        foodPost.setScore(score);
     }
 
     const Submit = () => {

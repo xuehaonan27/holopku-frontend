@@ -7,15 +7,11 @@ import { useNavigate } from "react-router-dom";
 const client = new AuthClient("http://localhost:8080", null, null);
 
 const AuthService = ({ onLoginSuccess }: { onLoginSuccess: (token: string | Uint8Array) => void }) => {
-  const [showLogin, setShowLogin] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loginStatus, setLoginStatus] = useState<string | undefined | null>(null);
   const navigate = useNavigate();
 
-  const handleLoginClick = () => {
-    setShowLogin(true);
-  };
 
   const handleSubmit = () => {
     const request = new LoginRequest();
@@ -41,12 +37,6 @@ const AuthService = ({ onLoginSuccess }: { onLoginSuccess: (token: string | Uint
 
   return (
     <div className="auth-service">
-      <button className="pushable" onClick={handleLoginClick}>
-        <span className="shadow"></span>
-        <span className="edge"></span>
-        <span className="front"> Login </span>
-      </button>
-      {showLogin && (
         <div>
           <h2>Login</h2>
           <input
@@ -63,8 +53,7 @@ const AuthService = ({ onLoginSuccess }: { onLoginSuccess: (token: string | Uint
           />
           <button onClick={handleSubmit}>Submit</button>
         </div>
-      )}
-          
+
       {loginStatus && <p>{loginStatus}</p>}
     </div>
   );
