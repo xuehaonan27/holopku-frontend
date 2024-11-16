@@ -1,11 +1,5 @@
 import  "../../proto/forum_pb";
-import { useState } from "react";
 import { ForumClient } from "../../proto/ForumServiceClientPb";
-import { FoodPost, Place } from "../../proto/foodPost_pb"; 
-import { SellPost,GoodsType } from "../../proto/sellPost_pb";
-import { AmusementPost,GameType } from "../../proto/amusementPost_pb";
-import { Post } from "../../proto/post_pb";
-import { CreateFoodPostRequest, ListAmusementPostsRequest, ListFoodPostsRequest, ListSellPostsRequest } from "../../proto/forum_pb";
 import { BrowserRouter, Route, Routes, useNavigate, useParams } from 'react-router-dom';
 import "./forum.css";
 

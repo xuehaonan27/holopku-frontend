@@ -3,10 +3,6 @@ import logo from './logo.svg';
 import './App.css';
 
 import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom';
-
-import { AuthClient } from './proto/AuthServiceClientPb';
-import { ForumClient } from './proto/ForumServiceClientPb';
-import { LoginProvider, LoginRequest, RegisterRequest, User } from './proto/auth_pb';
 import AuthService from './components/auth/auth';
 import HelloService from './components/hello/hello';
 import ForumService from './components/forum/forum';
@@ -16,6 +12,7 @@ import SellList from './components/sellPostList/sellPostList';
 import ShowSellPost from './components/sellPost/sellPost';
 import ShowAmusementPost from './components/amusePost/amusePost';
 import AmusementList from './components/amusepostList/amusePostList';
+import Register from './components/Register/Register';
 
 function App() {
   const [token, setToken] = useState<string | Uint8Array | null>(null);
@@ -31,6 +28,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<AuthService onLoginSuccess={handleLoginSuccess} />} />
+          <Route path="/register" element={<Register />} />
           <Route path="/test/hello" element={<HelloService />} />
           <Route path="/home" element={<ForumService token={token!} />} />
           <Route path="/food" element={<FoodList token={token!}/> } />

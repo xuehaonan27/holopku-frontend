@@ -5,7 +5,7 @@ import {GetPostRequest} from "../../proto/forum_pb";
 import { User } from "../../proto/auth_pb";
 import { useState } from "react";
 import { AuthClient } from "../../proto/AuthServiceClientPb";
-import { Submit,DeleteComment } from "../../fucntions/comment";
+import { Submit,DeleteComment } from "../../functions/comment";
 import { SellPost,GoodsType } from "../../proto/sellPost_pb";
 const auth = new AuthClient("http://localhost:8080");
 const client = new ForumClient("http://localhost:8080");

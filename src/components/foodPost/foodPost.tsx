@@ -1,4 +1,4 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { FoodPost, Place } from "../../proto/foodPost_pb"; 
 import { Comment } from "../../proto/post_pb";
 import { ForumClient } from "../../proto/ForumServiceClientPb";
@@ -6,7 +6,10 @@ import {GetPostRequest} from "../../proto/forum_pb";
 import { User } from "../../proto/auth_pb";
 import { useState } from "react";
 import { AuthClient } from "../../proto/AuthServiceClientPb";
-import { Submit,DeleteComment } from "../../fucntions/comment";
+import { Submit,DeleteComment } from "../../functions/comment";
+import { DeletePost } from "../../functions/post";
+import StarRating from "../../functions/StarRating";
+import "./foodPost.css";
 const auth = new AuthClient("http://localhost:8080");
 const client = new ForumClient("http://localhost:8080");
 
@@ -19,7 +22,9 @@ const ShowFoodPost = ({token}:{token:string | Uint8Array}) => {
     const [state,setState]=useState(false);
     const [getPost,setGetPost]=useState(true);
     const [post,setPost]=useState(Post);
+    const [imgList,setImgList]=useState<string[]>([]);
     const location = useLocation();
+    const navagate = useNavigate();
     const id = location.state ? location.state.id: undefined;
 
 const GetPlace=(place:number)=>{
@@ -57,6 +62,7 @@ const GetPost=()=>{
                 setPost(response.getPost()!);
                 setState(true);
                 setComments(response.getPost()!.getPost()?.getCommentsList()!);
+                setImgList(response.getPost()!.getPost()?.getImagesList()!);
            }else{
                 setState(false);
            }
@@ -65,47 +71,61 @@ const GetPost=()=>{
 }
 
 if(getPost){
-    GetPost();
+    setTimeout(GetPost,100);
+    //GetPost();
    setGetPost(false);
 }
 
-    return <div>
+    return <div className="showFoodPost">
         <div className="FoodPost">
+        <button className="delete" onClick={()=>{
+                DeletePost(post.getPost()?.getId()!,client);
+                navagate('/food');
+            }}>删除帖子</button>
+
         <h2>{post.getPost()?.getTitle()}</h2>
-        <div className="content">
-            {post.getPost()?.getContent()}
-        </div>
+        <div className="Score">
+            <StarRating score={post.getScore()} />
+        </div>  
         <div className="Place">
             地点: {GetPlace(post.getPlace())}
         </div>
-        <div className="Score">
-            Score={post.getScore()}
-        </div>  
+        <div className="content">
+            {post.getPost()?.getContent()}
+        </div>
+        <div className="showImg">
+            {imgList.map((img) => {
+                return <img src={img} alt="图片"   height="200"  />
+            })}
+        </div>
+    
         <div className="Comments">
             <h2>评论区</h2>
             {comments.map((comment) => {
                 return <div key={comment.getId()} >
                     {comment.getContent()}
-                    {<button onClick={
+                    <button onClick={
                         ()=>{DeleteComment(id,comment.getId(),client)
                         setGetPost(true);
-                    }}>删除评论</button>}
+                    }}>删除评论</button>
                     </div>
             })}
         </div>    
+
         </div>
 
         <div className="createComment"> 
             <div className="inputContent">
-                <input
-                    type="text"
+                <textarea
                     placeholder="发条友善的评论吧"
                     value={content}
                     onChange={(e) => setContent(e.target.value)}
+                    rows={5}
                 />
             </div>
         <button onClick={()=>{
-            Submit(id,content,client)
+            Submit(id,content,client);
+            setContent("");
             setGetPost(true);
         }}>确认</button>
       </div>

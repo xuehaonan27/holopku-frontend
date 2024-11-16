@@ -1,74 +1,126 @@
-import { useLocation, useParams } from "react-router-dom";
-import { AmusementPost,GameType } from "../../proto/amusementPost_pb"; 
-import { Post } from "../../proto/post_pb";
+import { useLocation } from "react-router-dom";
+import { AmusementPost, GameType } from "../../proto/amusementPost_pb"; 
+import { Comment } from "../../proto/post_pb";
 import { ForumClient } from "../../proto/ForumServiceClientPb";
 import {GetPostRequest} from "../../proto/forum_pb";
+import { User } from "../../proto/auth_pb";
 import { useState } from "react";
-const client = new ForumClient("10.129.82.144:8080");
+import { AuthClient } from "../../proto/AuthServiceClientPb";
+import { Submit,DeleteComment } from "../../functions/comment";
+const auth = new AuthClient("http://localhost:8080");
+const client = new ForumClient("http://localhost:8080");
 
-const AmusementPosts: AmusementPost[] = [];
 const ShowAmusementPost = ({token}:{token:string | Uint8Array}) => {
+    const myuser=new User();
+    const Comments:Comment[]=[];
+    const [comments,setComments]=useState(Comments);
+    const [content,setContent]=useState("");
+    const Post=new AmusementPost();
+    const [state,setState]=useState(false);
+    const [getPost,setGetPost]=useState(true);
+    const [post,setPost]=useState(Post);
     const location = useLocation();
-    console.log(location.state);
     const id = location.state ? location.state.id: undefined;
-    console.log(location.state);
-const GetPostTest=()=>{
-    AmusementPosts.length = 0;
-    const post1= new Post();
-    post1.setTitle("test1");
-    post1.setContent("test1");
-    post1.setUserId(0);
-    post1.setId(0);
-    const post2= new Post();
-    post2.setTitle("test2");
-    post2.setContent("test2");
-    post2.setId(1);
-    const amusementPost1 = new AmusementPost();
-    const amusementPost2 = new AmusementPost();
-    AmusementPosts.push(amusementPost1);
-    AmusementPosts.push(amusementPost2);
-    const amusementPost=AmusementPosts[id];
-    return <div>
-        {amusementPost ? (
-            <ShowPost amusementPost={amusementPost} />
-        ) : (
-            <div>Post not found</div>
-        )}
-    </div>
+
+const GetType=(type:number)=>{
+    switch(type){
+        case GameType.WOLFKILL:
+            return "狼人杀";
+        case GameType.JVBEN:
+            return "剧本杀";
+        case GameType.BLOODTOWER:
+            return "血战塔";
+        case GameType.KARAOK:
+            return "卡拉OK";
+        case GameType.BOARDGAME:
+            return "桌游";
+        case GameType.SPORTS:
+            return "运动";
+        case GameType.RIDING:
+            return "骑行";
+        case GameType.OTHER:
+            return "其他";
+        default:
+            return "其他";
+    }
 }
 
 const GetPost=()=>{
     const request=new GetPostRequest();
     request.setPostId(id);
-    const Post=new AmusementPost();
-    const [state,setState]=useState(false);
-    const [post,setPost]=useState(Post);
+    
     client.getAmusementPost(request,{},(err,response)=>{
         if(err){
             console.log(err);
+            setState(false);
         }else{
             
            if(response.getSuccess()){
                 setPost(response.getPost()!);
                 setState(true);
-           };
+                setComments(response.getPost()!.getPost()?.getCommentsList()!);
+           }else{
+                setState(false);
+           }
         }
     })
+}
+
+if(getPost){
+    GetPost();
+   setGetPost(false);
+}
+
     return <div>
-        {state ? (
-            <ShowPost amusementPost={post} />
-        ) : (
-            <div>Post not found</div>
-        )}
-    </div>
-}
-const ShowPost=({amusementPost}:{amusementPost:AmusementPost})=>{//展示帖子
-    return <div className="AmusementPost">
-        <div className="title">
-            {amusementPost.getPost()?.getContent()}
+        <div className="AmusementPost">
+        <h2>{post.getPost()?.getTitle()}</h2>
+        <div className="content">
+            {post.getPost()?.getContent()}
         </div>
+        <div className="place">
+            地点: {post.getPlace()}
         </div>
-}
-    return <GetPostTest />
+        <div className="time">
+            时间={post.getTime()}
+        </div>  
+        <div className="type">
+            游戏类型={GetType(post.getType())}
+        </div>  
+        <div className="people">
+            需要人数={post.getPeopleAll()}
+            已有人数={post.getPeopleAlready()}
+        </div>  
+        <div className="contact">
+            联系方式={post.getContact()}
+        </div>  
+        <div className="Comments">
+            <h2>评论区</h2>
+            {comments.map((comment) => {
+                return <div key={comment.getId()} >
+                    {comment.getContent()}
+                    {<button onClick={
+                        ()=>{DeleteComment(id,comment.getId(),client)
+                        setGetPost(true);
+                    }}>删除评论</button>}
+                    </div>
+            })}
+        </div>    
+        </div>
+
+        <div className="createComment"> 
+            <div className="inputContent">
+                <input
+                    type="text"
+                    placeholder="发条友善的评论吧"
+                    value={content}
+                    onChange={(e) => setContent(e.target.value)}
+                />
+            </div>
+        <button onClick={()=>{
+            Submit(id,content,client)
+            setGetPost(true);
+        }}>确认</button>
+      </div>
+        </div>
 }
 export default ShowAmusementPost;

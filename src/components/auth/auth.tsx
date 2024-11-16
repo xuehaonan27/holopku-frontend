@@ -26,7 +26,7 @@ const AuthService = ({ onLoginSuccess }: { onLoginSuccess: (token: string | Uint
         setLoginStatus("Login success!");
         if (response.getSuccess()) {
           navigate('/home');
-          onLoginSuccess(response.getToken());
+          //onLoginSuccess(response.getToken());
           console.log(response.getUser()?.getId());
           
         }
@@ -38,7 +38,7 @@ const AuthService = ({ onLoginSuccess }: { onLoginSuccess: (token: string | Uint
   return (
     <div className="auth-service">
         <div>
-          <h2>Login</h2>
+          <h2>Holopku</h2>
           <input
             type="text"
             placeholder="Username"
@@ -51,7 +51,11 @@ const AuthService = ({ onLoginSuccess }: { onLoginSuccess: (token: string | Uint
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <button onClick={handleSubmit}>Submit</button>
+          <div className="options">
+          <button className="login" onClick={handleSubmit}>确认</button>
+          <button className="register" onClick={()=>{navigate("/register")}}>注册</button>
+          </div>
+          
         </div>
 
       {loginStatus && <p>{loginStatus}</p>}

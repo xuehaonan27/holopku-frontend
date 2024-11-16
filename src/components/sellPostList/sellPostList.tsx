@@ -5,7 +5,7 @@ import { SellPost, GoodsType } from "../../proto/sellPost_pb";
 import { Post} from "../../proto/post_pb";
 import { CreateSellPostRequest,ListSellPostsRequest} from "../../proto/forum_pb";
 import { useNavigate } from 'react-router-dom';
-import { DeletePost, initPost} from "../../fucntions/post";
+import { DeletePost, initPost} from "../../functions/post";
 const client = new ForumClient("http://localhost:8080");
 
 const SellList = ({token}:{token:string | Uint8Array}) => {
