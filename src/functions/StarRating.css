@@ -1,0 +1,26 @@
+.rating {
+    display: inline-flex;
+    align-items: center;
+    font-size: 1.5em;
+    color: lightgray; /* 默认星星颜色 */
+    margin: 0; /* 重置外边距 */
+    padding: 0; /* 重置内边距 */
+    list-style: none; /* 移除列表样式 */
+  }
+  
+  .star {
+    margin-right: 2px; /* 星星之间的间距 */
+    font-weight: bold;
+    cursor: pointer; /* 鼠标悬停时显示手型 */
+    color: inherit; /* 继承父元素的颜色 */
+    outline: none; /* 移除聚焦时的轮廓 */
+  }
+  
+  .filled {
+    color: gold; /* 填充星星的颜色 */
+  }
+  
+  /* 移除最后一个星星的右边距 */
+  .star:last-child {
+    margin-right: 0;
+  }

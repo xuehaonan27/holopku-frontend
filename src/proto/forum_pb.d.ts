@@ -1,36 +1,68 @@
 import * as jspb from 'google-protobuf'
 
+import * as post_pb from './post_pb'; // proto import: "post.proto"
+import * as amusementPost_pb from './amusementPost_pb'; // proto import: "amusementPost.proto"
+import * as foodPost_pb from './foodPost_pb'; // proto import: "foodPost.proto"
+import * as sellPost_pb from './sellPost_pb'; // proto import: "sellPost.proto"
 
 
-export class CreatePostRequest extends jspb.Message {
-  getUserId(): number;
-  setUserId(value: number): CreatePostRequest;
-
-  getTitle(): string;
-  setTitle(value: string): CreatePostRequest;
-
-  getContent(): string;
-  setContent(value: string): CreatePostRequest;
-
-  getImagesList(): Array<string>;
-  setImagesList(value: Array<string>): CreatePostRequest;
-  clearImagesList(): CreatePostRequest;
-  addImages(value: string, index?: number): CreatePostRequest;
+export class CreateFoodPostRequest extends jspb.Message {
+  getPost(): foodPost_pb.FoodPost | undefined;
+  setPost(value?: foodPost_pb.FoodPost): CreateFoodPostRequest;
+  hasPost(): boolean;
+  clearPost(): CreateFoodPostRequest;
 
   serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): CreatePostRequest.AsObject;
-  static toObject(includeInstance: boolean, msg: CreatePostRequest): CreatePostRequest.AsObject;
-  static serializeBinaryToWriter(message: CreatePostRequest, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): CreatePostRequest;
-  static deserializeBinaryFromReader(message: CreatePostRequest, reader: jspb.BinaryReader): CreatePostRequest;
+  toObject(includeInstance?: boolean): CreateFoodPostRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: CreateFoodPostRequest): CreateFoodPostRequest.AsObject;
+  static serializeBinaryToWriter(message: CreateFoodPostRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): CreateFoodPostRequest;
+  static deserializeBinaryFromReader(message: CreateFoodPostRequest, reader: jspb.BinaryReader): CreateFoodPostRequest;
 }
 
-export namespace CreatePostRequest {
+export namespace CreateFoodPostRequest {
   export type AsObject = {
-    userId: number,
-    title: string,
-    content: string,
-    imagesList: Array<string>,
+    post?: foodPost_pb.FoodPost.AsObject,
+  }
+}
+
+export class CreateAmusementPostRequest extends jspb.Message {
+  getPost(): amusementPost_pb.AmusementPost | undefined;
+  setPost(value?: amusementPost_pb.AmusementPost): CreateAmusementPostRequest;
+  hasPost(): boolean;
+  clearPost(): CreateAmusementPostRequest;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): CreateAmusementPostRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: CreateAmusementPostRequest): CreateAmusementPostRequest.AsObject;
+  static serializeBinaryToWriter(message: CreateAmusementPostRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): CreateAmusementPostRequest;
+  static deserializeBinaryFromReader(message: CreateAmusementPostRequest, reader: jspb.BinaryReader): CreateAmusementPostRequest;
+}
+
+export namespace CreateAmusementPostRequest {
+  export type AsObject = {
+    post?: amusementPost_pb.AmusementPost.AsObject,
+  }
+}
+
+export class CreateSellPostRequest extends jspb.Message {
+  getPost(): sellPost_pb.SellPost | undefined;
+  setPost(value?: sellPost_pb.SellPost): CreateSellPostRequest;
+  hasPost(): boolean;
+  clearPost(): CreateSellPostRequest;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): CreateSellPostRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: CreateSellPostRequest): CreateSellPostRequest.AsObject;
+  static serializeBinaryToWriter(message: CreateSellPostRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): CreateSellPostRequest;
+  static deserializeBinaryFromReader(message: CreateSellPostRequest, reader: jspb.BinaryReader): CreateSellPostRequest;
+}
+
+export namespace CreateSellPostRequest {
+  export type AsObject = {
+    post?: sellPost_pb.SellPost.AsObject,
   }
 }
 
@@ -101,9 +133,6 @@ export namespace DeletePostResponse {
 }
 
 export class GetPostRequest extends jspb.Message {
-  getUserId(): number;
-  setUserId(value: number): GetPostRequest;
-
   getPostId(): number;
   setPostId(value: number): GetPostRequest;
 
@@ -117,78 +146,311 @@ export class GetPostRequest extends jspb.Message {
 
 export namespace GetPostRequest {
   export type AsObject = {
-    userId: number,
     postId: number,
   }
 }
 
-export class GetPostResponse extends jspb.Message {
+export class GetFoodPostResponse extends jspb.Message {
   getSuccess(): boolean;
-  setSuccess(value: boolean): GetPostResponse;
+  setSuccess(value: boolean): GetFoodPostResponse;
 
-  getPost(): Post | undefined;
-  setPost(value?: Post): GetPostResponse;
+  getPost(): foodPost_pb.FoodPost | undefined;
+  setPost(value?: foodPost_pb.FoodPost): GetFoodPostResponse;
   hasPost(): boolean;
-  clearPost(): GetPostResponse;
+  clearPost(): GetFoodPostResponse;
 
   serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): GetPostResponse.AsObject;
-  static toObject(includeInstance: boolean, msg: GetPostResponse): GetPostResponse.AsObject;
-  static serializeBinaryToWriter(message: GetPostResponse, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): GetPostResponse;
-  static deserializeBinaryFromReader(message: GetPostResponse, reader: jspb.BinaryReader): GetPostResponse;
+  toObject(includeInstance?: boolean): GetFoodPostResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: GetFoodPostResponse): GetFoodPostResponse.AsObject;
+  static serializeBinaryToWriter(message: GetFoodPostResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): GetFoodPostResponse;
+  static deserializeBinaryFromReader(message: GetFoodPostResponse, reader: jspb.BinaryReader): GetFoodPostResponse;
 }
 
-export namespace GetPostResponse {
+export namespace GetFoodPostResponse {
   export type AsObject = {
     success: boolean,
-    post?: Post.AsObject,
+    post?: foodPost_pb.FoodPost.AsObject,
   }
 }
 
-export class ListPostsRequest extends jspb.Message {
+export class GetSellPostResponse extends jspb.Message {
+  getSuccess(): boolean;
+  setSuccess(value: boolean): GetSellPostResponse;
+
+  getPost(): sellPost_pb.SellPost | undefined;
+  setPost(value?: sellPost_pb.SellPost): GetSellPostResponse;
+  hasPost(): boolean;
+  clearPost(): GetSellPostResponse;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): GetSellPostResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: GetSellPostResponse): GetSellPostResponse.AsObject;
+  static serializeBinaryToWriter(message: GetSellPostResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): GetSellPostResponse;
+  static deserializeBinaryFromReader(message: GetSellPostResponse, reader: jspb.BinaryReader): GetSellPostResponse;
+}
+
+export namespace GetSellPostResponse {
+  export type AsObject = {
+    success: boolean,
+    post?: sellPost_pb.SellPost.AsObject,
+  }
+}
+
+export class GetAmusementPostResponse extends jspb.Message {
+  getSuccess(): boolean;
+  setSuccess(value: boolean): GetAmusementPostResponse;
+
+  getPost(): amusementPost_pb.AmusementPost | undefined;
+  setPost(value?: amusementPost_pb.AmusementPost): GetAmusementPostResponse;
+  hasPost(): boolean;
+  clearPost(): GetAmusementPostResponse;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): GetAmusementPostResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: GetAmusementPostResponse): GetAmusementPostResponse.AsObject;
+  static serializeBinaryToWriter(message: GetAmusementPostResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): GetAmusementPostResponse;
+  static deserializeBinaryFromReader(message: GetAmusementPostResponse, reader: jspb.BinaryReader): GetAmusementPostResponse;
+}
+
+export namespace GetAmusementPostResponse {
+  export type AsObject = {
+    success: boolean,
+    post?: amusementPost_pb.AmusementPost.AsObject,
+  }
+}
+
+export class ListPersonalPostsRequest extends jspb.Message {
+  getPostType(): post_pb.PostType;
+  setPostType(value: post_pb.PostType): ListPersonalPostsRequest;
+
   getUserId(): number;
-  setUserId(value: number): ListPostsRequest;
+  setUserId(value: number): ListPersonalPostsRequest;
+  hasUserId(): boolean;
+  clearUserId(): ListPersonalPostsRequest;
 
-  getPage(): number;
-  setPage(value: number): ListPostsRequest;
+  getType(): ListRequestType;
+  setType(value: ListRequestType): ListPersonalPostsRequest;
 
-  getPageSize(): number;
-  setPageSize(value: number): ListPostsRequest;
+  getNumber(): number;
+  setNumber(value: number): ListPersonalPostsRequest;
 
   serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): ListPostsRequest.AsObject;
-  static toObject(includeInstance: boolean, msg: ListPostsRequest): ListPostsRequest.AsObject;
-  static serializeBinaryToWriter(message: ListPostsRequest, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): ListPostsRequest;
-  static deserializeBinaryFromReader(message: ListPostsRequest, reader: jspb.BinaryReader): ListPostsRequest;
+  toObject(includeInstance?: boolean): ListPersonalPostsRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: ListPersonalPostsRequest): ListPersonalPostsRequest.AsObject;
+  static serializeBinaryToWriter(message: ListPersonalPostsRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): ListPersonalPostsRequest;
+  static deserializeBinaryFromReader(message: ListPersonalPostsRequest, reader: jspb.BinaryReader): ListPersonalPostsRequest;
 }
 
-export namespace ListPostsRequest {
+export namespace ListPersonalPostsRequest {
   export type AsObject = {
-    userId: number,
-    page: number,
-    pageSize: number,
+    postType: post_pb.PostType,
+    userId?: number,
+    type: ListRequestType,
+    number: number,
+  }
+
+  export enum UserIdCase { 
+    _USER_ID_NOT_SET = 0,
+    USER_ID = 2,
   }
 }
 
-export class ListPostsResponse extends jspb.Message {
-  getPostsList(): Array<Post>;
-  setPostsList(value: Array<Post>): ListPostsResponse;
-  clearPostsList(): ListPostsResponse;
-  addPosts(value?: Post, index?: number): Post;
+export class ListPersonalPostsResponse extends jspb.Message {
+  getFresponse(): ListFoodPostsResponse | undefined;
+  setFresponse(value?: ListFoodPostsResponse): ListPersonalPostsResponse;
+  hasFresponse(): boolean;
+  clearFresponse(): ListPersonalPostsResponse;
+
+  getSresponse(): ListSellPostsResponse | undefined;
+  setSresponse(value?: ListSellPostsResponse): ListPersonalPostsResponse;
+  hasSresponse(): boolean;
+  clearSresponse(): ListPersonalPostsResponse;
+
+  getAresponse(): ListAmusementPostsResponse | undefined;
+  setAresponse(value?: ListAmusementPostsResponse): ListPersonalPostsResponse;
+  hasAresponse(): boolean;
+  clearAresponse(): ListPersonalPostsResponse;
+
+  getMessageCase(): ListPersonalPostsResponse.MessageCase;
 
   serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): ListPostsResponse.AsObject;
-  static toObject(includeInstance: boolean, msg: ListPostsResponse): ListPostsResponse.AsObject;
-  static serializeBinaryToWriter(message: ListPostsResponse, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): ListPostsResponse;
-  static deserializeBinaryFromReader(message: ListPostsResponse, reader: jspb.BinaryReader): ListPostsResponse;
+  toObject(includeInstance?: boolean): ListPersonalPostsResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: ListPersonalPostsResponse): ListPersonalPostsResponse.AsObject;
+  static serializeBinaryToWriter(message: ListPersonalPostsResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): ListPersonalPostsResponse;
+  static deserializeBinaryFromReader(message: ListPersonalPostsResponse, reader: jspb.BinaryReader): ListPersonalPostsResponse;
 }
 
-export namespace ListPostsResponse {
+export namespace ListPersonalPostsResponse {
   export type AsObject = {
-    postsList: Array<Post.AsObject>,
+    fresponse?: ListFoodPostsResponse.AsObject,
+    sresponse?: ListSellPostsResponse.AsObject,
+    aresponse?: ListAmusementPostsResponse.AsObject,
+  }
+
+  export enum MessageCase { 
+    MESSAGE_NOT_SET = 0,
+    FRESPONSE = 1,
+    SRESPONSE = 2,
+    ARESPONSE = 3,
+  }
+}
+
+export class ListFoodPostsRequest extends jspb.Message {
+  getFoodPlace(): foodPost_pb.Place;
+  setFoodPlace(value: foodPost_pb.Place): ListFoodPostsRequest;
+
+  getScoreLowbond(): number;
+  setScoreLowbond(value: number): ListFoodPostsRequest;
+
+  getRandom(): boolean;
+  setRandom(value: boolean): ListFoodPostsRequest;
+
+  getNumber(): number;
+  setNumber(value: number): ListFoodPostsRequest;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): ListFoodPostsRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: ListFoodPostsRequest): ListFoodPostsRequest.AsObject;
+  static serializeBinaryToWriter(message: ListFoodPostsRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): ListFoodPostsRequest;
+  static deserializeBinaryFromReader(message: ListFoodPostsRequest, reader: jspb.BinaryReader): ListFoodPostsRequest;
+}
+
+export namespace ListFoodPostsRequest {
+  export type AsObject = {
+    foodPlace: foodPost_pb.Place,
+    scoreLowbond: number,
+    random: boolean,
+    number: number,
+  }
+}
+
+export class ListSellPostsRequest extends jspb.Message {
+  getGoodsType(): sellPost_pb.GoodsType;
+  setGoodsType(value: sellPost_pb.GoodsType): ListSellPostsRequest;
+
+  getPriceUpbond(): number;
+  setPriceUpbond(value: number): ListSellPostsRequest;
+
+  getNumber(): number;
+  setNumber(value: number): ListSellPostsRequest;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): ListSellPostsRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: ListSellPostsRequest): ListSellPostsRequest.AsObject;
+  static serializeBinaryToWriter(message: ListSellPostsRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): ListSellPostsRequest;
+  static deserializeBinaryFromReader(message: ListSellPostsRequest, reader: jspb.BinaryReader): ListSellPostsRequest;
+}
+
+export namespace ListSellPostsRequest {
+  export type AsObject = {
+    goodsType: sellPost_pb.GoodsType,
+    priceUpbond: number,
+    number: number,
+  }
+}
+
+export class ListAmusementPostsRequest extends jspb.Message {
+  getGameType(): amusementPost_pb.GameType;
+  setGameType(value: amusementPost_pb.GameType): ListAmusementPostsRequest;
+
+  getPeopleAllLowbound(): number;
+  setPeopleAllLowbound(value: number): ListAmusementPostsRequest;
+
+  getPeopleAllUpbound(): number;
+  setPeopleAllUpbound(value: number): ListAmusementPostsRequest;
+
+  getPeopleDiffUpbound(): number;
+  setPeopleDiffUpbound(value: number): ListAmusementPostsRequest;
+
+  getTimeAbout(): number;
+  setTimeAbout(value: number): ListAmusementPostsRequest;
+
+  getNumber(): number;
+  setNumber(value: number): ListAmusementPostsRequest;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): ListAmusementPostsRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: ListAmusementPostsRequest): ListAmusementPostsRequest.AsObject;
+  static serializeBinaryToWriter(message: ListAmusementPostsRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): ListAmusementPostsRequest;
+  static deserializeBinaryFromReader(message: ListAmusementPostsRequest, reader: jspb.BinaryReader): ListAmusementPostsRequest;
+}
+
+export namespace ListAmusementPostsRequest {
+  export type AsObject = {
+    gameType: amusementPost_pb.GameType,
+    peopleAllLowbound: number,
+    peopleAllUpbound: number,
+    peopleDiffUpbound: number,
+    timeAbout: number,
+    number: number,
+  }
+}
+
+export class ListFoodPostsResponse extends jspb.Message {
+  getPostsList(): Array<foodPost_pb.FoodPost>;
+  setPostsList(value: Array<foodPost_pb.FoodPost>): ListFoodPostsResponse;
+  clearPostsList(): ListFoodPostsResponse;
+  addPosts(value?: foodPost_pb.FoodPost, index?: number): foodPost_pb.FoodPost;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): ListFoodPostsResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: ListFoodPostsResponse): ListFoodPostsResponse.AsObject;
+  static serializeBinaryToWriter(message: ListFoodPostsResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): ListFoodPostsResponse;
+  static deserializeBinaryFromReader(message: ListFoodPostsResponse, reader: jspb.BinaryReader): ListFoodPostsResponse;
+}
+
+export namespace ListFoodPostsResponse {
+  export type AsObject = {
+    postsList: Array<foodPost_pb.FoodPost.AsObject>,
+  }
+}
+
+export class ListSellPostsResponse extends jspb.Message {
+  getPostsList(): Array<sellPost_pb.SellPost>;
+  setPostsList(value: Array<sellPost_pb.SellPost>): ListSellPostsResponse;
+  clearPostsList(): ListSellPostsResponse;
+  addPosts(value?: sellPost_pb.SellPost, index?: number): sellPost_pb.SellPost;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): ListSellPostsResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: ListSellPostsResponse): ListSellPostsResponse.AsObject;
+  static serializeBinaryToWriter(message: ListSellPostsResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): ListSellPostsResponse;
+  static deserializeBinaryFromReader(message: ListSellPostsResponse, reader: jspb.BinaryReader): ListSellPostsResponse;
+}
+
+export namespace ListSellPostsResponse {
+  export type AsObject = {
+    postsList: Array<sellPost_pb.SellPost.AsObject>,
+  }
+}
+
+export class ListAmusementPostsResponse extends jspb.Message {
+  getPostsList(): Array<amusementPost_pb.AmusementPost>;
+  setPostsList(value: Array<amusementPost_pb.AmusementPost>): ListAmusementPostsResponse;
+  clearPostsList(): ListAmusementPostsResponse;
+  addPosts(value?: amusementPost_pb.AmusementPost, index?: number): amusementPost_pb.AmusementPost;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): ListAmusementPostsResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: ListAmusementPostsResponse): ListAmusementPostsResponse.AsObject;
+  static serializeBinaryToWriter(message: ListAmusementPostsResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): ListAmusementPostsResponse;
+  static deserializeBinaryFromReader(message: ListAmusementPostsResponse, reader: jspb.BinaryReader): ListAmusementPostsResponse;
+}
+
+export namespace ListAmusementPostsResponse {
+  export type AsObject = {
+    postsList: Array<amusementPost_pb.AmusementPost.AsObject>,
   }
 }
 
@@ -280,81 +542,81 @@ export namespace DeleteCommentResponse {
   }
 }
 
-export class LikeRequest extends jspb.Message {
+export class LikePostRequest extends jspb.Message {
   getUserId(): number;
-  setUserId(value: number): LikeRequest;
+  setUserId(value: number): LikePostRequest;
 
   getPostId(): number;
-  setPostId(value: number): LikeRequest;
+  setPostId(value: number): LikePostRequest;
 
   serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): LikeRequest.AsObject;
-  static toObject(includeInstance: boolean, msg: LikeRequest): LikeRequest.AsObject;
-  static serializeBinaryToWriter(message: LikeRequest, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): LikeRequest;
-  static deserializeBinaryFromReader(message: LikeRequest, reader: jspb.BinaryReader): LikeRequest;
+  toObject(includeInstance?: boolean): LikePostRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: LikePostRequest): LikePostRequest.AsObject;
+  static serializeBinaryToWriter(message: LikePostRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): LikePostRequest;
+  static deserializeBinaryFromReader(message: LikePostRequest, reader: jspb.BinaryReader): LikePostRequest;
 }
 
-export namespace LikeRequest {
+export namespace LikePostRequest {
   export type AsObject = {
     userId: number,
     postId: number,
   }
 }
 
-export class LikeResponse extends jspb.Message {
+export class LikePostResponse extends jspb.Message {
   getSuccess(): boolean;
-  setSuccess(value: boolean): LikeResponse;
+  setSuccess(value: boolean): LikePostResponse;
 
   serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): LikeResponse.AsObject;
-  static toObject(includeInstance: boolean, msg: LikeResponse): LikeResponse.AsObject;
-  static serializeBinaryToWriter(message: LikeResponse, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): LikeResponse;
-  static deserializeBinaryFromReader(message: LikeResponse, reader: jspb.BinaryReader): LikeResponse;
+  toObject(includeInstance?: boolean): LikePostResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: LikePostResponse): LikePostResponse.AsObject;
+  static serializeBinaryToWriter(message: LikePostResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): LikePostResponse;
+  static deserializeBinaryFromReader(message: LikePostResponse, reader: jspb.BinaryReader): LikePostResponse;
 }
 
-export namespace LikeResponse {
+export namespace LikePostResponse {
   export type AsObject = {
     success: boolean,
   }
 }
 
-export class UnlikeRequest extends jspb.Message {
+export class UnlikePostRequest extends jspb.Message {
   getUserId(): number;
-  setUserId(value: number): UnlikeRequest;
+  setUserId(value: number): UnlikePostRequest;
 
   getPostId(): number;
-  setPostId(value: number): UnlikeRequest;
+  setPostId(value: number): UnlikePostRequest;
 
   serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): UnlikeRequest.AsObject;
-  static toObject(includeInstance: boolean, msg: UnlikeRequest): UnlikeRequest.AsObject;
-  static serializeBinaryToWriter(message: UnlikeRequest, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): UnlikeRequest;
-  static deserializeBinaryFromReader(message: UnlikeRequest, reader: jspb.BinaryReader): UnlikeRequest;
+  toObject(includeInstance?: boolean): UnlikePostRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: UnlikePostRequest): UnlikePostRequest.AsObject;
+  static serializeBinaryToWriter(message: UnlikePostRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): UnlikePostRequest;
+  static deserializeBinaryFromReader(message: UnlikePostRequest, reader: jspb.BinaryReader): UnlikePostRequest;
 }
 
-export namespace UnlikeRequest {
+export namespace UnlikePostRequest {
   export type AsObject = {
     userId: number,
     postId: number,
   }
 }
 
-export class UnlikeResponse extends jspb.Message {
+export class UnlikePostResponse extends jspb.Message {
   getSuccess(): boolean;
-  setSuccess(value: boolean): UnlikeResponse;
+  setSuccess(value: boolean): UnlikePostResponse;
 
   serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): UnlikeResponse.AsObject;
-  static toObject(includeInstance: boolean, msg: UnlikeResponse): UnlikeResponse.AsObject;
-  static serializeBinaryToWriter(message: UnlikeResponse, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): UnlikeResponse;
-  static deserializeBinaryFromReader(message: UnlikeResponse, reader: jspb.BinaryReader): UnlikeResponse;
+  toObject(includeInstance?: boolean): UnlikePostResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: UnlikePostResponse): UnlikePostResponse.AsObject;
+  static serializeBinaryToWriter(message: UnlikePostResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): UnlikePostResponse;
+  static deserializeBinaryFromReader(message: UnlikePostResponse, reader: jspb.BinaryReader): UnlikePostResponse;
 }
 
-export namespace UnlikeResponse {
+export namespace UnlikePostResponse {
   export type AsObject = {
     success: boolean,
   }
@@ -440,157 +702,208 @@ export namespace UnfavorateResponse {
   }
 }
 
-export class Post extends jspb.Message {
-  getId(): number;
-  setId(value: number): Post;
-
-  getTitle(): string;
-  setTitle(value: string): Post;
-
+export class LikeCommentRequest extends jspb.Message {
   getUserId(): number;
-  setUserId(value: number): Post;
+  setUserId(value: number): LikeCommentRequest;
 
-  getContent(): string;
-  setContent(value: string): Post;
-
-  getLikes(): number;
-  setLikes(value: number): Post;
-
-  getFavorates(): number;
-  setFavorates(value: number): Post;
-
-  getCreatedAt(): number;
-  setCreatedAt(value: number): Post;
-
-  getUpdatedAt(): number;
-  setUpdatedAt(value: number): Post;
-  hasUpdatedAt(): boolean;
-  clearUpdatedAt(): Post;
-
-  getCommentsList(): Array<Comment>;
-  setCommentsList(value: Array<Comment>): Post;
-  clearCommentsList(): Post;
-  addComments(value?: Comment, index?: number): Comment;
-
-  getImagesList(): Array<string>;
-  setImagesList(value: Array<string>): Post;
-  clearImagesList(): Post;
-  addImages(value: string, index?: number): Post;
+  getCommentId(): number;
+  setCommentId(value: number): LikeCommentRequest;
 
   serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): Post.AsObject;
-  static toObject(includeInstance: boolean, msg: Post): Post.AsObject;
-  static serializeBinaryToWriter(message: Post, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): Post;
-  static deserializeBinaryFromReader(message: Post, reader: jspb.BinaryReader): Post;
+  toObject(includeInstance?: boolean): LikeCommentRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: LikeCommentRequest): LikeCommentRequest.AsObject;
+  static serializeBinaryToWriter(message: LikeCommentRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): LikeCommentRequest;
+  static deserializeBinaryFromReader(message: LikeCommentRequest, reader: jspb.BinaryReader): LikeCommentRequest;
 }
 
-export namespace Post {
+export namespace LikeCommentRequest {
   export type AsObject = {
-    id: number,
-    title: string,
     userId: number,
-    content: string,
-    likes: number,
-    favorates: number,
-    createdAt: number,
-    updatedAt?: number,
-    commentsList: Array<Comment.AsObject>,
-    imagesList: Array<string>,
-  }
-
-  export enum UpdatedAtCase { 
-    _UPDATED_AT_NOT_SET = 0,
-    UPDATED_AT = 10,
+    commentId: number,
   }
 }
 
-export class Comment extends jspb.Message {
-  getId(): number;
-  setId(value: number): Comment;
+export class LikeCommentResponse extends jspb.Message {
+  getSuccess(): boolean;
+  setSuccess(value: boolean): LikeCommentResponse;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): LikeCommentResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: LikeCommentResponse): LikeCommentResponse.AsObject;
+  static serializeBinaryToWriter(message: LikeCommentResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): LikeCommentResponse;
+  static deserializeBinaryFromReader(message: LikeCommentResponse, reader: jspb.BinaryReader): LikeCommentResponse;
+}
+
+export namespace LikeCommentResponse {
+  export type AsObject = {
+    success: boolean,
+  }
+}
+
+export class UnlikeCommentRequest extends jspb.Message {
+  getUserId(): number;
+  setUserId(value: number): UnlikeCommentRequest;
+
+  getCommentId(): number;
+  setCommentId(value: number): UnlikeCommentRequest;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): UnlikeCommentRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: UnlikeCommentRequest): UnlikeCommentRequest.AsObject;
+  static serializeBinaryToWriter(message: UnlikeCommentRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): UnlikeCommentRequest;
+  static deserializeBinaryFromReader(message: UnlikeCommentRequest, reader: jspb.BinaryReader): UnlikeCommentRequest;
+}
+
+export namespace UnlikeCommentRequest {
+  export type AsObject = {
+    userId: number,
+    commentId: number,
+  }
+}
+
+export class UnlikeCommentResponse extends jspb.Message {
+  getSuccess(): boolean;
+  setSuccess(value: boolean): UnlikeCommentResponse;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): UnlikeCommentResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: UnlikeCommentResponse): UnlikeCommentResponse.AsObject;
+  static serializeBinaryToWriter(message: UnlikeCommentResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): UnlikeCommentResponse;
+  static deserializeBinaryFromReader(message: UnlikeCommentResponse, reader: jspb.BinaryReader): UnlikeCommentResponse;
+}
+
+export namespace UnlikeCommentResponse {
+  export type AsObject = {
+    success: boolean,
+  }
+}
+
+export class TakePartAmusePostRequest extends jspb.Message {
+  getUserId(): number;
+  setUserId(value: number): TakePartAmusePostRequest;
 
   getPostId(): number;
-  setPostId(value: number): Comment;
-
-  getUserId(): number;
-  setUserId(value: number): Comment;
-
-  getContent(): string;
-  setContent(value: string): Comment;
-
-  getLikes(): number;
-  setLikes(value: number): Comment;
-
-  getCreatedAt(): number;
-  setCreatedAt(value: number): Comment;
-
-  getUpdatedAt(): number;
-  setUpdatedAt(value: number): Comment;
-  hasUpdatedAt(): boolean;
-  clearUpdatedAt(): Comment;
+  setPostId(value: number): TakePartAmusePostRequest;
 
   serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): Comment.AsObject;
-  static toObject(includeInstance: boolean, msg: Comment): Comment.AsObject;
-  static serializeBinaryToWriter(message: Comment, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): Comment;
-  static deserializeBinaryFromReader(message: Comment, reader: jspb.BinaryReader): Comment;
+  toObject(includeInstance?: boolean): TakePartAmusePostRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: TakePartAmusePostRequest): TakePartAmusePostRequest.AsObject;
+  static serializeBinaryToWriter(message: TakePartAmusePostRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): TakePartAmusePostRequest;
+  static deserializeBinaryFromReader(message: TakePartAmusePostRequest, reader: jspb.BinaryReader): TakePartAmusePostRequest;
 }
 
-export namespace Comment {
+export namespace TakePartAmusePostRequest {
   export type AsObject = {
-    id: number,
-    postId: number,
     userId: number,
-    content: string,
-    likes: number,
-    createdAt: number,
-    updatedAt?: number,
-  }
-
-  export enum UpdatedAtCase { 
-    _UPDATED_AT_NOT_SET = 0,
-    UPDATED_AT = 7,
+    postId: number,
   }
 }
 
-export class Topic extends jspb.Message {
-  getId(): number;
-  setId(value: number): Topic;
-
-  getName(): string;
-  setName(value: string): Topic;
-
-  getDescription(): string;
-  setDescription(value: string): Topic;
-
-  getLabelsMap(): jspb.Map<string, string>;
-  clearLabelsMap(): Topic;
-
-  getPostNum(): number;
-  setPostNum(value: number): Topic;
-
-  getPostIdsList(): Array<number>;
-  setPostIdsList(value: Array<number>): Topic;
-  clearPostIdsList(): Topic;
-  addPostIds(value: number, index?: number): Topic;
+export class TakePartAmusePostResponse extends jspb.Message {
+  getSuccess(): boolean;
+  setSuccess(value: boolean): TakePartAmusePostResponse;
 
   serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): Topic.AsObject;
-  static toObject(includeInstance: boolean, msg: Topic): Topic.AsObject;
-  static serializeBinaryToWriter(message: Topic, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): Topic;
-  static deserializeBinaryFromReader(message: Topic, reader: jspb.BinaryReader): Topic;
+  toObject(includeInstance?: boolean): TakePartAmusePostResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: TakePartAmusePostResponse): TakePartAmusePostResponse.AsObject;
+  static serializeBinaryToWriter(message: TakePartAmusePostResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): TakePartAmusePostResponse;
+  static deserializeBinaryFromReader(message: TakePartAmusePostResponse, reader: jspb.BinaryReader): TakePartAmusePostResponse;
 }
 
-export namespace Topic {
+export namespace TakePartAmusePostResponse {
   export type AsObject = {
-    id: number,
-    name: string,
-    description: string,
-    labelsMap: Array<[string, string]>,
-    postNum: number,
-    postIdsList: Array<number>,
+    success: boolean,
   }
 }
 
+export class NoTakePartAmusePostRequest extends jspb.Message {
+  getUserId(): number;
+  setUserId(value: number): NoTakePartAmusePostRequest;
+
+  getPostId(): number;
+  setPostId(value: number): NoTakePartAmusePostRequest;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): NoTakePartAmusePostRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: NoTakePartAmusePostRequest): NoTakePartAmusePostRequest.AsObject;
+  static serializeBinaryToWriter(message: NoTakePartAmusePostRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): NoTakePartAmusePostRequest;
+  static deserializeBinaryFromReader(message: NoTakePartAmusePostRequest, reader: jspb.BinaryReader): NoTakePartAmusePostRequest;
+}
+
+export namespace NoTakePartAmusePostRequest {
+  export type AsObject = {
+    userId: number,
+    postId: number,
+  }
+}
+
+export class NoTakePartAmusePostResponse extends jspb.Message {
+  getSuccess(): boolean;
+  setSuccess(value: boolean): NoTakePartAmusePostResponse;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): NoTakePartAmusePostResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: NoTakePartAmusePostResponse): NoTakePartAmusePostResponse.AsObject;
+  static serializeBinaryToWriter(message: NoTakePartAmusePostResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): NoTakePartAmusePostResponse;
+  static deserializeBinaryFromReader(message: NoTakePartAmusePostResponse, reader: jspb.BinaryReader): NoTakePartAmusePostResponse;
+}
+
+export namespace NoTakePartAmusePostResponse {
+  export type AsObject = {
+    success: boolean,
+  }
+}
+
+export class SetSoldRequest extends jspb.Message {
+  getUserId(): number;
+  setUserId(value: number): SetSoldRequest;
+
+  getPostId(): number;
+  setPostId(value: number): SetSoldRequest;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): SetSoldRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: SetSoldRequest): SetSoldRequest.AsObject;
+  static serializeBinaryToWriter(message: SetSoldRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): SetSoldRequest;
+  static deserializeBinaryFromReader(message: SetSoldRequest, reader: jspb.BinaryReader): SetSoldRequest;
+}
+
+export namespace SetSoldRequest {
+  export type AsObject = {
+    userId: number,
+    postId: number,
+  }
+}
+
+export class SetSoldResponse extends jspb.Message {
+  getSuccess(): boolean;
+  setSuccess(value: boolean): SetSoldResponse;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): SetSoldResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: SetSoldResponse): SetSoldResponse.AsObject;
+  static serializeBinaryToWriter(message: SetSoldResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): SetSoldResponse;
+  static deserializeBinaryFromReader(message: SetSoldResponse, reader: jspb.BinaryReader): SetSoldResponse;
+}
+
+export namespace SetSoldResponse {
+  export type AsObject = {
+    success: boolean,
+  }
+}
+
+export enum ListRequestType { 
+  STAR = 0,
+  TAKEPART = 1,
+  OWN = 2,
+}

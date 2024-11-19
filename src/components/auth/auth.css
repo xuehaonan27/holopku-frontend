@@ -1,0 +1,81 @@
+/* AuthStyle.css */
+
+.auth-service {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; /* 使容器至少和视口一样高 */
+  /* width:100vw; 宽度占满整个视口 */
+  padding: 20px; /* 根据需要调整内边距 */
+  box-sizing: border-box; /* 包括padding在内的宽度和高度计算 */
+  background: transparent; /* 设置背景透明 */
+  background-color: #de6a6afc; 
+/* 备用背景颜色*/
+  background-image: url('../../../imgs/zhanwei.jpg');
+  background-size: cover; /* 覆盖整个容器 */
+  background-position: center; /* 背景图居中显示 */
+  background-repeat: no-repeat; /* 不重复背景图 */
+}
+
+.auth-service > div {
+  width: 40%; /* 宽度为100%，但会被padding影响 */
+  background: white; /* 根据需要调整背景颜色 */
+  padding: 20px; /* 根据需要调整内边距 */
+  border-radius: 8px; /* 设置边框圆角 */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 添加阴影效果 */
+  /* 移除了max-width以适应所有屏幕尺寸 */
+}
+
+.auth-service h2 {
+  margin-bottom: 20px; /* 标题和下一个元素之间的间距 */
+  color: #333; /* 根据需要调整颜色 */
+}
+
+.auth-service input {
+  width: calc(100% - 20px); /* 减去padding的宽度 */
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd; /* 根据需要调整边框颜色 */
+  border-radius: 4px; /* 设置边框圆角 */
+  box-sizing: border-box; /* 包括padding在内的宽度和高度计算 */
+}
+
+.options {
+  display: flex;
+  justify-content: space-between; /* 元素之间的间距相等 */
+}
+
+.login {
+  width: 65%;
+  padding: 10px;
+  font-size: 20PX;
+  border: none;
+  border-radius: 4px;
+  background-color: #d92424; /* 根据需要调整背景颜色 */
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-bottom: 10px;
+}
+
+.register {
+  width: 30%;
+  padding: 10px;
+  font-size: 20PX;
+  border: none;
+  border-radius: 4px;
+  background-color: #2463d9; /* 根据需要调整背景颜色 */
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-bottom: 10px;
+}
+
+.auth-service button:hover {
+  background-color: #4cae4c; /* 鼠标悬停时的背景颜色 */
+}
+
+.auth-service p {
+  margin-top: 20px; /* 与上一个元素之间的间距 */
+  color: red; /* 根据需要调整颜色 */
+}

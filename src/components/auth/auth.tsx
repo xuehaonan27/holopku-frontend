@@ -1,18 +1,17 @@
 import { useState } from "react";
 import { LoginProvider, LoginRequest, User } from "../../proto/auth_pb";
 import { AuthClient } from "../../proto/AuthServiceClientPb";
+import { useNavigate } from "react-router-dom";
+import "./auth.css";
 
 const client = new AuthClient("http://localhost:8080", null, null);
 
 const AuthService = ({ onLoginSuccess }: { onLoginSuccess: (token: string | Uint8Array) => void }) => {
-  const [showLogin, setShowLogin] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loginStatus, setLoginStatus] = useState<string | undefined | null>(null);
+  const navigate = useNavigate();
 
-  const handleLoginClick = () => {
-    setShowLogin(true);
-  };
 
   const handleSubmit = () => {
     const request = new LoginRequest();
@@ -26,18 +25,20 @@ const AuthService = ({ onLoginSuccess }: { onLoginSuccess: (token: string | Uint
       } else {
         setLoginStatus("Login success!");
         if (response.getSuccess()) {
-          onLoginSuccess(response.getToken());
+          navigate('/home');
+          //onLoginSuccess(response.getToken());
+          console.log(response.getUser()?.getId());
+          
         }
+        
       }
     });
   };
 
   return (
     <div className="auth-service">
-      <button onClick={handleLoginClick}>Login</button>
-      {showLogin && (
         <div>
-          <h2>Login</h2>
+          <h2>Holopku</h2>
           <input
             type="text"
             placeholder="Username"
@@ -50,9 +51,13 @@ const AuthService = ({ onLoginSuccess }: { onLoginSuccess: (token: string | Uint
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <button onClick={handleSubmit}>Submit</button>
+          <div className="options">
+          <button className="login" onClick={handleSubmit}>确认</button>
+          <button className="register" onClick={()=>{navigate("/register")}}>注册</button>
+          </div>
+          
         </div>
-      )}
+
       {loginStatus && <p>{loginStatus}</p>}
     </div>
   );
