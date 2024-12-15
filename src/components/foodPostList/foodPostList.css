@@ -142,19 +142,6 @@
     margin-top: 20px;
   }
 
-  .personalPage {
-    padding: 5px 10px;
-    font-size: 15px;
-    font-weight: bold;
-    height: 50px;
-    width:80%;
-    color: #fff;
-    background-color: #f2cd47; 
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 20px;
-  }
   
   .FoodList button:hover {
     background-color: #b21e1e; 

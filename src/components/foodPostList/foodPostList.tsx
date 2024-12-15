@@ -237,7 +237,6 @@ const FoodList = () => {
         
       </div>)}
 
-      <button className="personalPage" onClick={()=>navigate("/user")}>个人中心</button>
         
       <button className="return" onClick={()=>{localStorage.setItem("type",JSON.stringify(0));navigate("/home")}}>返回首页</button>
     </div>

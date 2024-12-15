@@ -9,9 +9,12 @@ const navigate = useNavigate();
 const token = JSON.parse(localStorage.getItem('token')!);
 
     return <div className='forum'>
-        <div><button className='food' onClick={()=>navigate('/food') }>校园美食</button></div>
-        <div><button className='sell' onClick={()=>navigate('/sell')}>交易信息</button></div>
-        <div><button className='amuse' onClick={()=>navigate('/amuse')}>校内外娱乐</button></div>
+        <div className='sections'>
+            <button className='food' onClick={()=>navigate('/food') }>校园美食</button>
+            <button className='sell' onClick={()=>navigate('/sell')}>交易信息</button>
+            <button className='amuse' onClick={()=>navigate('/amuse')}>校内外娱乐</button>
+        </div>
+        <button className="personalPage" onClick={()=>navigate("/user")}>个人中心</button>
     </div>
 }
 export default ForumService;

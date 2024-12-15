@@ -25,9 +25,9 @@ const ShowFoodPost = () => {
     const [post,setPost]=useState<FoodPost>(foodPost);
     const [imgList,setImgList]=useState<string[]>([]);
     const [icon,setIcon]=useState('');
+    const [userName,setUserName]=useState('');
     const location = useLocation();
     const navagate = useNavigate();
-    const [favor,setFavor]=useState(false);
     const id = location.state ? location.state.id: undefined;
     const token = JSON.parse(localStorage.getItem('token')!);
     const uid=JSON.parse(localStorage.getItem('uid')!);
@@ -62,13 +62,6 @@ const getUser=()=>{
                 console.log(err);
             }else{
                 setUser(response.getUser()!);
-                const img0=response.getUser()!.getIcon()!;
-                if(typeof img0 === 'string'){
-                    setIcon(changeImg(img0));
-                }else{
-                    //console.log(new TextDecoder("utf-8").decode(img0));
-                    setIcon(changeImg(new TextDecoder("utf-8").decode(img0)));
-                }
             }
         })
     
@@ -76,8 +69,7 @@ const getUser=()=>{
 
 const GetPost=()=>{
     const request=new GetPostRequest();
-    request.setPostId(id);
-    
+    request.setPostId(id)
     client.getFoodPost(request,{},(err,response)=>{
         if(err){
             console.log(err);
@@ -93,6 +85,23 @@ const GetPost=()=>{
                         setImgList([...imgList,changeImg(new TextDecoder().decode(img))]);
                     }
                 })
+                const userId=response.getPost()!.getPost()!.getUserId();
+                const request1=new GetUserRequest();
+        request1.setUserId(userId)
+        auth.getUser(request1,{},(err,response1)=>{
+            if(err){
+                console.log(err);
+            }else{
+                const img0=response1.getUser()!.getIcon();
+                if(typeof img0 === 'string'){
+                    setIcon(changeImg(img0));
+                }else{
+                    //console.log(new TextDecoder("utf-8").decode(img0));
+                    setIcon(changeImg(new TextDecoder("utf-8").decode(img0)));
+                }
+                setUserName(response1.getUser()!.getUsername());
+            }
+        })
            }
     }
 })
@@ -158,6 +167,7 @@ const unFavorPost=()=>{
 
 } 
 if(getPost){
+    //setImgList([]);
     getUser();
     setTimeout(GetPost,100);
    setGetPost(false);
@@ -174,7 +184,7 @@ if(getPost){
         <h2>{post.getPost()?.getTitle()}</h2>
         <div className="userInfo">
             <img src={ icon } className='icon' alt='头像' width='50' height='50' />
-            <span className='userName'>{user.getUsername()!}</span>
+            <span className='userName'>{userName}</span>
         </div>
         <div className='Score'>
             <StarRating score={post.getScore()} />
@@ -187,8 +197,8 @@ if(getPost){
         </div>
         <div className='showImg'>
             {
-            imgList.map((img) => {
-                return <img src={img} alt='图片'   height='200'  />
+            imgList.map((img,index) => {
+                return <img src={img} id={index.toString()} alt='图片'   height='200'  />
             })}
         <div className="likeAndFavor">
             {(user.getLikedPostsList().includes(id))?<span className='liked' onClick={()=>unLikePost()}>❤</span>:<span className='notLiked' onClick={()=>likePost()}>❤</span>}
@@ -205,7 +215,7 @@ if(getPost){
                     {(user.getId() === comment.getUserId())&&
                     <button onClick={
                         ()=>{DeleteComment(id,comment.getId(),client,user.getId())
-                        setGetPost(true);
+                        setGetPost(true);setImgList([]);
                     }}>删除评论</button>
                 }
                     </div>
@@ -227,6 +237,7 @@ if(getPost){
             Submit(id,content,client,user.getId());
             setContent('');
             setGetPost(true);
+            setImgList([]);
         }}>确认</button>
       </div>
         </div>
