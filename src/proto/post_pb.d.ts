@@ -34,10 +34,10 @@ export class Post extends jspb.Message {
   clearCommentsList(): Post;
   addComments(value?: Comment, index?: number): Comment;
 
-  getImagesList(): Array<string>;
-  setImagesList(value: Array<string>): Post;
+  getImagesList(): Array<Uint8Array | string>;
+  setImagesList(value: Array<Uint8Array | string>): Post;
   clearImagesList(): Post;
-  addImages(value: string, index?: number): Post;
+  addImages(value: Uint8Array | string, index?: number): Post;
 
   getPostType(): PostType;
   setPostType(value: PostType): Post;
@@ -61,7 +61,7 @@ export namespace Post {
     createdAt: number,
     updatedAt?: number,
     commentsList: Array<Comment.AsObject>,
-    imagesList: Array<string>,
+    imagesList: Array<Uint8Array | string>,
     postType: PostType,
   }
 

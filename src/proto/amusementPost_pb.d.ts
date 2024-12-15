@@ -15,14 +15,14 @@ export class AmusementPost extends jspb.Message {
   getPeopleAlready(): number;
   setPeopleAlready(value: number): AmusementPost;
 
-  getType(): GameType;
-  setType(value: GameType): AmusementPost;
+  getGameType(): GameType;
+  setGameType(value: GameType): AmusementPost;
 
-  getTime(): number;
-  setTime(value: number): AmusementPost;
+  getStartTime(): number;
+  setStartTime(value: number): AmusementPost;
 
-  getPlace(): string;
-  setPlace(value: string): AmusementPost;
+  getAmusePlace(): string;
+  setAmusePlace(value: string): AmusementPost;
 
   getContact(): string;
   setContact(value: string): AmusementPost;
@@ -40,9 +40,9 @@ export namespace AmusementPost {
     post?: post_pb.Post.AsObject,
     peopleAll: number,
     peopleAlready: number,
-    type: GameType,
-    time: number,
-    place: string,
+    gameType: GameType,
+    startTime: number,
+    amusePlace: string,
     contact: string,
   }
 }

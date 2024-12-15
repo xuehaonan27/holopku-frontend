@@ -126,8 +126,8 @@ export namespace LoginResponse {
 }
 
 export class GetUserRequest extends jspb.Message {
-  getToken(): string;
-  setToken(value: string): GetUserRequest;
+  getUserId(): number;
+  setUserId(value: number): GetUserRequest;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): GetUserRequest.AsObject;
@@ -139,7 +139,7 @@ export class GetUserRequest extends jspb.Message {
 
 export namespace GetUserRequest {
   export type AsObject = {
-    token: string,
+    userId: number,
   }
 }
 
@@ -161,6 +161,100 @@ export class GetUserResponse extends jspb.Message {
 }
 
 export namespace GetUserResponse {
+  export type AsObject = {
+    success: boolean,
+    user?: User.AsObject,
+  }
+}
+
+export class ChangeIconRequest extends jspb.Message {
+  getUserId(): number;
+  setUserId(value: number): ChangeIconRequest;
+
+  getNewIcon(): Uint8Array | string;
+  getNewIcon_asU8(): Uint8Array;
+  getNewIcon_asB64(): string;
+  setNewIcon(value: Uint8Array | string): ChangeIconRequest;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): ChangeIconRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: ChangeIconRequest): ChangeIconRequest.AsObject;
+  static serializeBinaryToWriter(message: ChangeIconRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): ChangeIconRequest;
+  static deserializeBinaryFromReader(message: ChangeIconRequest, reader: jspb.BinaryReader): ChangeIconRequest;
+}
+
+export namespace ChangeIconRequest {
+  export type AsObject = {
+    userId: number,
+    newIcon: Uint8Array | string,
+  }
+}
+
+export class ChangeIconResponse extends jspb.Message {
+  getSuccess(): boolean;
+  setSuccess(value: boolean): ChangeIconResponse;
+
+  getUser(): User | undefined;
+  setUser(value?: User): ChangeIconResponse;
+  hasUser(): boolean;
+  clearUser(): ChangeIconResponse;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): ChangeIconResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: ChangeIconResponse): ChangeIconResponse.AsObject;
+  static serializeBinaryToWriter(message: ChangeIconResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): ChangeIconResponse;
+  static deserializeBinaryFromReader(message: ChangeIconResponse, reader: jspb.BinaryReader): ChangeIconResponse;
+}
+
+export namespace ChangeIconResponse {
+  export type AsObject = {
+    success: boolean,
+    user?: User.AsObject,
+  }
+}
+
+export class ChangeUsernameRequest extends jspb.Message {
+  getUserId(): number;
+  setUserId(value: number): ChangeUsernameRequest;
+
+  getNewName(): string;
+  setNewName(value: string): ChangeUsernameRequest;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): ChangeUsernameRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: ChangeUsernameRequest): ChangeUsernameRequest.AsObject;
+  static serializeBinaryToWriter(message: ChangeUsernameRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): ChangeUsernameRequest;
+  static deserializeBinaryFromReader(message: ChangeUsernameRequest, reader: jspb.BinaryReader): ChangeUsernameRequest;
+}
+
+export namespace ChangeUsernameRequest {
+  export type AsObject = {
+    userId: number,
+    newName: string,
+  }
+}
+
+export class ChangeUsernameResponse extends jspb.Message {
+  getSuccess(): boolean;
+  setSuccess(value: boolean): ChangeUsernameResponse;
+
+  getUser(): User | undefined;
+  setUser(value?: User): ChangeUsernameResponse;
+  hasUser(): boolean;
+  clearUser(): ChangeUsernameResponse;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): ChangeUsernameResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: ChangeUsernameResponse): ChangeUsernameResponse.AsObject;
+  static serializeBinaryToWriter(message: ChangeUsernameResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): ChangeUsernameResponse;
+  static deserializeBinaryFromReader(message: ChangeUsernameResponse, reader: jspb.BinaryReader): ChangeUsernameResponse;
+}
+
+export namespace ChangeUsernameResponse {
   export type AsObject = {
     success: boolean,
     user?: User.AsObject,
@@ -193,6 +287,26 @@ export class User extends jspb.Message {
   hasUpdatedAt(): boolean;
   clearUpdatedAt(): User;
 
+  getIcon(): Uint8Array | string;
+  getIcon_asU8(): Uint8Array;
+  getIcon_asB64(): string;
+  setIcon(value: Uint8Array | string): User;
+
+  getFavoritePostsList(): Array<number>;
+  setFavoritePostsList(value: Array<number>): User;
+  clearFavoritePostsList(): User;
+  addFavoritePosts(value: number, index?: number): User;
+
+  getLikedPostsList(): Array<number>;
+  setLikedPostsList(value: Array<number>): User;
+  clearLikedPostsList(): User;
+  addLikedPosts(value: number, index?: number): User;
+
+  getTakePartPostsList(): Array<number>;
+  setTakePartPostsList(value: Array<number>): User;
+  clearTakePartPostsList(): User;
+  addTakePartPosts(value: number, index?: number): User;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): User.AsObject;
   static toObject(includeInstance: boolean, msg: User): User.AsObject;
@@ -210,6 +324,10 @@ export namespace User {
     nickname: string,
     createdAt: number,
     updatedAt?: number,
+    icon: Uint8Array | string,
+    favoritePostsList: Array<number>,
+    likedPostsList: Array<number>,
+    takePartPostsList: Array<number>,
   }
 
   export enum EmailCase { 

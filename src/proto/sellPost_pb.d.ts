@@ -17,8 +17,8 @@ export class SellPost extends jspb.Message {
   getPrice(): number;
   setPrice(value: number): SellPost;
 
-  getType(): GoodsType;
-  setType(value: GoodsType): SellPost;
+  getGoodsType(): GoodsType;
+  setGoodsType(value: GoodsType): SellPost;
 
   getSold(): boolean;
   setSold(value: boolean): SellPost;
@@ -36,7 +36,7 @@ export namespace SellPost {
     post?: post_pb.Post.AsObject,
     contact?: string,
     price: number,
-    type: GoodsType,
+    goodsType: GoodsType,
     sold: boolean,
   }
 

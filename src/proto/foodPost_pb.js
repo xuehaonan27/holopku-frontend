@@ -73,7 +73,7 @@ proto.foodPost.FoodPost.prototype.toObject = function(opt_includeInstance) {
 proto.foodPost.FoodPost.toObject = function(includeInstance, msg) {
   var f, obj = {
     post: (f = msg.getPost()) && post_pb.Post.toObject(includeInstance, f),
-    place: jspb.Message.getFieldWithDefault(msg, 2, 0),
+    foodPlace: jspb.Message.getFieldWithDefault(msg, 2, 0),
     score: jspb.Message.getFieldWithDefault(msg, 3, 0)
   };
 
@@ -118,7 +118,7 @@ proto.foodPost.FoodPost.deserializeBinaryFromReader = function(msg, reader) {
       break;
     case 2:
       var value = /** @type {!proto.foodPost.Place} */ (reader.readEnum());
-      msg.setPlace(value);
+      msg.setFoodPlace(value);
       break;
     case 3:
       var value = /** @type {number} */ (reader.readInt32());
@@ -161,7 +161,7 @@ proto.foodPost.FoodPost.serializeBinaryToWriter = function(message, writer) {
       post_pb.Post.serializeBinaryToWriter
     );
   }
-  f = message.getPlace();
+  f = message.getFoodPlace();
   if (f !== 0.0) {
     writer.writeEnum(
       2,
@@ -216,10 +216,10 @@ proto.foodPost.FoodPost.prototype.hasPost = function() {
 
 
 /**
- * optional Place place = 2;
+ * optional Place food_place = 2;
  * @return {!proto.foodPost.Place}
  */
-proto.foodPost.FoodPost.prototype.getPlace = function() {
+proto.foodPost.FoodPost.prototype.getFoodPlace = function() {
   return /** @type {!proto.foodPost.Place} */ (jspb.Message.getFieldWithDefault(this, 2, 0));
 };
 
@@ -228,7 +228,7 @@ proto.foodPost.FoodPost.prototype.getPlace = function() {
  * @param {!proto.foodPost.Place} value
  * @return {!proto.foodPost.FoodPost} returns this
  */
-proto.foodPost.FoodPost.prototype.setPlace = function(value) {
+proto.foodPost.FoodPost.prototype.setFoodPlace = function(value) {
   return jspb.Message.setProto3EnumField(this, 2, value);
 };
 

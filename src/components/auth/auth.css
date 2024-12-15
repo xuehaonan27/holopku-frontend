@@ -1,6 +1,6 @@
 /* AuthStyle.css */
 
-.auth-service {
+.authService {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -17,7 +17,7 @@
   background-repeat: no-repeat; /* 不重复背景图 */
 }
 
-.auth-service > div {
+.authService > div {
   width: 40%; /* 宽度为100%，但会被padding影响 */
   background: white; /* 根据需要调整背景颜色 */
   padding: 20px; /* 根据需要调整内边距 */
@@ -26,12 +26,12 @@
   /* 移除了max-width以适应所有屏幕尺寸 */
 }
 
-.auth-service h2 {
+.authService h2 {
   margin-bottom: 20px; /* 标题和下一个元素之间的间距 */
   color: #333; /* 根据需要调整颜色 */
 }
 
-.auth-service input {
+.authService input {
   width: calc(100% - 20px); /* 减去padding的宽度 */
   padding: 10px;
   margin-bottom: 10px;
@@ -71,11 +71,11 @@
   margin-bottom: 10px;
 }
 
-.auth-service button:hover {
+.authService button:hover {
   background-color: #4cae4c; /* 鼠标悬停时的背景颜色 */
 }
 
-.auth-service p {
+.authService p {
   margin-top: 20px; /* 与上一个元素之间的间距 */
   color: red; /* 根据需要调整颜色 */
 }

@@ -1,6 +1,6 @@
-import { CommentRequest, DeleteCommentRequest } from "../proto/forum_pb";
-import { ForumClient } from "../proto/ForumServiceClientPb";
-import { Post, PostType, Comment } from "../proto/post_pb";
+import { CommentRequest, DeleteCommentRequest } from '../proto/forum_pb';
+import { ForumClient } from '../proto/ForumServiceClientPb';
+import { Comment } from '../proto/post_pb';
 
 export const initComment =({comment,post_id,user_id,content,created_at}:{
     comment:Comment,
@@ -18,21 +18,21 @@ export const initComment =({comment,post_id,user_id,content,created_at}:{
     comment.setCreatedAt(created_at);
 }
 
-export const Submit=(id:number,content:string,client:ForumClient)=>{
+export const Submit=(id:number,content:string,client:ForumClient,uid:number)=>{
     const comment=new Comment();
-    if(content===""){
-        alert("标题或内容不能为空");
+    if(content===''){
+        alert('标题或内容不能为空');
         return;
     }   
-    if(content[content.length-1]=="\n"){
+    if(content[content.length-1]==='\n'){
         content=content.substring(0,content.length-1);
     }
     console.log(content);
-    initComment({comment:comment,id:0,post_id:id,user_id:1,content:content,created_at:0});
+    initComment({comment:comment,id:0,post_id:id,user_id:uid,content:content,created_at:0});
     const request=new CommentRequest();
     request.setContent(content);
     request.setPostId(id);
-    request.setUserId(1);
+    request.setUserId(uid);
     client.comment(request,{},(err,response)=>{
         if(err){
             console.log(err);
@@ -42,10 +42,10 @@ export const Submit=(id:number,content:string,client:ForumClient)=>{
     });
 }
 
-export const DeleteComment=(id:number,commentId:number,client:ForumClient)=>{
+export const DeleteComment=(id:number,commentId:number,client:ForumClient,uid:number)=>{
     const request=new DeleteCommentRequest();
     request.setPostId(id);
-    request.setUserId(1);
+    request.setUserId(uid);
     request.setCommentId(commentId);
     client.deleteComment(request,{},(err,response)=>{
         if(err){

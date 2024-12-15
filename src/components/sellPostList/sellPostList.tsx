@@ -50,7 +50,7 @@ const SellList = ({token}:{token:string | Uint8Array}) => {
         sellPost.setPost(post);
         sellPost.setContact(contact);
         sellPost.setPrice(price);
-        sellPost.setType(type);
+        sellPost.setGoodsType(type);
         sellPost.setSold(sold);
     }
     

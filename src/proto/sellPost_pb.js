@@ -75,7 +75,7 @@ proto.sellPost.SellPost.toObject = function(includeInstance, msg) {
     post: (f = msg.getPost()) && post_pb.Post.toObject(includeInstance, f),
     contact: jspb.Message.getFieldWithDefault(msg, 2, ""),
     price: jspb.Message.getFieldWithDefault(msg, 3, 0),
-    type: jspb.Message.getFieldWithDefault(msg, 4, 0),
+    goodsType: jspb.Message.getFieldWithDefault(msg, 4, 0),
     sold: jspb.Message.getBooleanFieldWithDefault(msg, 5, false)
   };
 
@@ -128,7 +128,7 @@ proto.sellPost.SellPost.deserializeBinaryFromReader = function(msg, reader) {
       break;
     case 4:
       var value = /** @type {!proto.sellPost.GoodsType} */ (reader.readEnum());
-      msg.setType(value);
+      msg.setGoodsType(value);
       break;
     case 5:
       var value = /** @type {boolean} */ (reader.readBool());
@@ -185,7 +185,7 @@ proto.sellPost.SellPost.serializeBinaryToWriter = function(message, writer) {
       f
     );
   }
-  f = message.getType();
+  f = message.getGoodsType();
   if (f !== 0.0) {
     writer.writeEnum(
       4,
@@ -294,10 +294,10 @@ proto.sellPost.SellPost.prototype.setPrice = function(value) {
 
 
 /**
- * optional GoodsType type = 4;
+ * optional GoodsType goods_type = 4;
  * @return {!proto.sellPost.GoodsType}
  */
-proto.sellPost.SellPost.prototype.getType = function() {
+proto.sellPost.SellPost.prototype.getGoodsType = function() {
   return /** @type {!proto.sellPost.GoodsType} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
 };
 
@@ -306,7 +306,7 @@ proto.sellPost.SellPost.prototype.getType = function() {
  * @param {!proto.sellPost.GoodsType} value
  * @return {!proto.sellPost.SellPost} returns this
  */
-proto.sellPost.SellPost.prototype.setType = function(value) {
+proto.sellPost.SellPost.prototype.setGoodsType = function(value) {
   return jspb.Message.setProto3EnumField(this, 4, value);
 };
 
