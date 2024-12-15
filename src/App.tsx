@@ -15,6 +15,7 @@ import AmusementList from './components/amusepostList/amusePostList';
 import Register from './components/Register/Register';
 import UserInf from './components/user/user';
 import { User } from './proto/auth_pb';
+import ShowForum from './components/forum/forum';
 
 function App() {
   const [token, setToken] = useState<string | Uint8Array | null>(null);
@@ -39,7 +40,7 @@ function App() {
           <Route path="/" element={<AuthService onLoginSuccess={handleLoginSuccess} />} />
           <Route path="/register" element={<Register />} />
           <Route path="/test/hello" element={<HelloService />} />
-          <Route path="/home" element={<ForumService />} />
+          <Route path="/home" element={<ShowForum />} />
           <Route path="/food" element={<FoodList /> } />
           <Route path="/food/:index" element={<ShowFoodPost /> } />
           <Route path="/sell" element={<SellList token={token!}/> } />

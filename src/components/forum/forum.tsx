@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Routes, useNavigate, useParams } from 'react-rout
 import './forum.css';
 
 const client = new ForumClient('10.129.82.144:8080');
-const ForumService = () => {
+const ShowForum = () => {
 const navigate = useNavigate();
 const token = JSON.parse(localStorage.getItem('token')!);
 
@@ -17,4 +17,4 @@ const token = JSON.parse(localStorage.getItem('token')!);
         <button className="personalPage" onClick={()=>navigate("/user")}>个人中心</button>
     </div>
 }
-export default ForumService;
+export default ShowForum;
