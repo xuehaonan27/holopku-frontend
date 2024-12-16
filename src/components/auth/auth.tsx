@@ -1,17 +1,17 @@
-import { useState } from "react";
-import { LoginProvider, LoginRequest, User } from "../../proto/auth_pb";
-import { AuthClient } from "../../proto/AuthServiceClientPb";
-import { useNavigate } from "react-router-dom";
-import "./auth.css";
+import { useState } from 'react';
+import { LoginProvider, LoginRequest, User } from '../../proto/auth_pb';
+import { AuthClient } from '../../proto/AuthServiceClientPb';
+import { useNavigate } from 'react-router-dom';
+import './auth.css';
 
-const client = new AuthClient("http://localhost:8080", null, null);
+const client = new AuthClient('http://localhost:8080', null, null);
 
-const AuthService = ({ onLoginSuccess }: { onLoginSuccess: (token: string | Uint8Array) => void }) => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+//返回一个提供登录/注册功能的组件
+const AuthService = ({ onLoginSuccess }: { onLoginSuccess: (token: string | Uint8Array,user:User) => void }) => {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const [loginStatus, setLoginStatus] = useState<string | undefined | null>(null);
   const navigate = useNavigate();
-
 
   const handleSubmit = () => {
     const request = new LoginRequest();
@@ -21,39 +21,37 @@ const AuthService = ({ onLoginSuccess }: { onLoginSuccess: (token: string | Uint
 
     client.login(request, {}, (err, response) => {
       if (err) {
-        setLoginStatus("Login failed: " + err.message);
+        setLoginStatus('Login failed: ' + err.message);
       } else {
-        setLoginStatus("Login success!");
+        setLoginStatus('Login success!');
         if (response.getSuccess()) {
+          onLoginSuccess(response.getToken(),response.getUser()!);
           navigate('/home');
-          //onLoginSuccess(response.getToken());
-          console.log(response.getUser()?.getId());
-          
+          console.log(response.getUser()?.getId());   
         }
-        
       }
     });
   };
 
   return (
-    <div className="auth-service">
+    <div className='authService'>
         <div>
           <h2>Holopku</h2>
           <input
-            type="text"
-            placeholder="Username"
+            type='text'
+            placeholder='Username'
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
           <input
-            type="password"
-            placeholder="Password"
+            type='password'
+            placeholder='Password'
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <div className="options">
-          <button className="login" onClick={handleSubmit}>确认</button>
-          <button className="register" onClick={()=>{navigate("/register")}}>注册</button>
+          <div className='options'>
+          <button className='login' onClick={handleSubmit}>确认</button>
+          <button className='register' onClick={()=>{navigate('/register')}}>注册</button>
           </div>
           
         </div>

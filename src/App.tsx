@@ -13,12 +13,22 @@ import ShowSellPost from './components/sellPost/sellPost';
 import ShowAmusementPost from './components/amusePost/amusePost';
 import AmusementList from './components/amusepostList/amusePostList';
 import Register from './components/Register/Register';
+import UserInf from './components/user/user';
+import { User } from './proto/auth_pb';
+import ShowForum from './components/forum/forum';
 
 function App() {
   const [token, setToken] = useState<string | Uint8Array | null>(null);
-  const handleLoginSuccess = (token: string | Uint8Array) => {
+  const placeholdUser=new User();
+  const [user,setUser]=useState<User>(placeholdUser);
+  const handleLoginSuccess = (token: string | Uint8Array,user:User) => {
     // const navigate = useNavigate();
     setToken(token);
+    setUser(user);
+    localStorage.setItem('token', JSON.stringify(token));
+    localStorage.setItem('uid', JSON.stringify(user.getId()));
+    localStorage.setItem('type', JSON.stringify(0));
+    console.log(user);
     alert('Logged in with token: ' + token);
   };
 
@@ -30,13 +40,14 @@ function App() {
           <Route path="/" element={<AuthService onLoginSuccess={handleLoginSuccess} />} />
           <Route path="/register" element={<Register />} />
           <Route path="/test/hello" element={<HelloService />} />
-          <Route path="/home" element={<ForumService token={token!} />} />
-          <Route path="/food" element={<FoodList token={token!}/> } />
-          <Route path="/food/:index" element={<ShowFoodPost token={token!}/> } />
-          <Route path="/sell" element={<SellList token={token!}/> } />
-          <Route path="/sell/:index" element={<ShowSellPost token={token!}/> } />
-          <Route path="/amuse" element={<AmusementList token={token!}/> } />
-          <Route path="/amuse/:index" element={<ShowAmusementPost token={token!}/> } />
+          <Route path="/home" element={<ShowForum />} />
+          <Route path="/food" element={<FoodList /> } />
+          <Route path="/food/:index" element={<ShowFoodPost /> } />
+          <Route path="/sell" element={<SellList/> } />
+          <Route path="/sell/:index" element={<ShowSellPost /> } />
+          <Route path="/amuse" element={<AmusementList /> } />
+          <Route path="/amuse/:index" element={<ShowAmusementPost /> } />
+          <Route path="/user" element={<UserInf /> } />
 
 
         </Routes>

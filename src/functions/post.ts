@@ -18,7 +18,10 @@ export const initPost =({post,id,title,user_id,content,created_at,image}:
     post.setTitle(title);
     post.setUserId(user_id);
     post.setContent(content);
-    post.setCreatedAt(created_at);
+    image.map((img,index)=>{
+        image[index]=btoa(img);
+    })
+    console.log(image);
     post.setImagesList(image);
 
 }
@@ -35,4 +38,7 @@ export const DeletePost=(id:number, client:ForumClient)=>{
         }
     })
 }
+ export const changeImg=(img:string)=>{
+    return "data:image/png;base64," + img;
+ }
 

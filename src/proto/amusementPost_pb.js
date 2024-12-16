@@ -75,9 +75,9 @@ proto.amusementPost.AmusementPost.toObject = function(includeInstance, msg) {
     post: (f = msg.getPost()) && post_pb.Post.toObject(includeInstance, f),
     peopleAll: jspb.Message.getFieldWithDefault(msg, 2, 0),
     peopleAlready: jspb.Message.getFieldWithDefault(msg, 3, 0),
-    type: jspb.Message.getFieldWithDefault(msg, 4, 0),
-    time: jspb.Message.getFieldWithDefault(msg, 5, 0),
-    place: jspb.Message.getFieldWithDefault(msg, 6, ""),
+    gameType: jspb.Message.getFieldWithDefault(msg, 4, 0),
+    startTime: jspb.Message.getFieldWithDefault(msg, 5, 0),
+    amusePlace: jspb.Message.getFieldWithDefault(msg, 6, ""),
     contact: jspb.Message.getFieldWithDefault(msg, 7, "")
   };
 
@@ -130,15 +130,15 @@ proto.amusementPost.AmusementPost.deserializeBinaryFromReader = function(msg, re
       break;
     case 4:
       var value = /** @type {!proto.amusementPost.GameType} */ (reader.readEnum());
-      msg.setType(value);
+      msg.setGameType(value);
       break;
     case 5:
-      var value = /** @type {number} */ (reader.readInt32());
-      msg.setTime(value);
+      var value = /** @type {number} */ (reader.readInt64());
+      msg.setStartTime(value);
       break;
     case 6:
       var value = /** @type {string} */ (reader.readString());
-      msg.setPlace(value);
+      msg.setAmusePlace(value);
       break;
     case 7:
       var value = /** @type {string} */ (reader.readString());
@@ -195,21 +195,21 @@ proto.amusementPost.AmusementPost.serializeBinaryToWriter = function(message, wr
       f
     );
   }
-  f = message.getType();
+  f = message.getGameType();
   if (f !== 0.0) {
     writer.writeEnum(
       4,
       f
     );
   }
-  f = message.getTime();
+  f = message.getStartTime();
   if (f !== 0) {
-    writer.writeInt32(
+    writer.writeInt64(
       5,
       f
     );
   }
-  f = message.getPlace();
+  f = message.getAmusePlace();
   if (f.length > 0) {
     writer.writeString(
       6,
@@ -300,10 +300,10 @@ proto.amusementPost.AmusementPost.prototype.setPeopleAlready = function(value) {
 
 
 /**
- * optional GameType type = 4;
+ * optional GameType game_type = 4;
  * @return {!proto.amusementPost.GameType}
  */
-proto.amusementPost.AmusementPost.prototype.getType = function() {
+proto.amusementPost.AmusementPost.prototype.getGameType = function() {
   return /** @type {!proto.amusementPost.GameType} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
 };
 
@@ -312,16 +312,16 @@ proto.amusementPost.AmusementPost.prototype.getType = function() {
  * @param {!proto.amusementPost.GameType} value
  * @return {!proto.amusementPost.AmusementPost} returns this
  */
-proto.amusementPost.AmusementPost.prototype.setType = function(value) {
+proto.amusementPost.AmusementPost.prototype.setGameType = function(value) {
   return jspb.Message.setProto3EnumField(this, 4, value);
 };
 
 
 /**
- * optional int32 time = 5;
+ * optional int64 start_time = 5;
  * @return {number}
  */
-proto.amusementPost.AmusementPost.prototype.getTime = function() {
+proto.amusementPost.AmusementPost.prototype.getStartTime = function() {
   return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 5, 0));
 };
 
@@ -330,16 +330,16 @@ proto.amusementPost.AmusementPost.prototype.getTime = function() {
  * @param {number} value
  * @return {!proto.amusementPost.AmusementPost} returns this
  */
-proto.amusementPost.AmusementPost.prototype.setTime = function(value) {
+proto.amusementPost.AmusementPost.prototype.setStartTime = function(value) {
   return jspb.Message.setProto3IntField(this, 5, value);
 };
 
 
 /**
- * optional string place = 6;
+ * optional string amuse_place = 6;
  * @return {string}
  */
-proto.amusementPost.AmusementPost.prototype.getPlace = function() {
+proto.amusementPost.AmusementPost.prototype.getAmusePlace = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 6, ""));
 };
 
@@ -348,7 +348,7 @@ proto.amusementPost.AmusementPost.prototype.getPlace = function() {
  * @param {string} value
  * @return {!proto.amusementPost.AmusementPost} returns this
  */
-proto.amusementPost.AmusementPost.prototype.setPlace = function(value) {
+proto.amusementPost.AmusementPost.prototype.setAmusePlace = function(value) {
   return jspb.Message.setProto3StringField(this, 6, value);
 };
 

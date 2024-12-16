@@ -303,6 +303,8 @@ export namespace ListPersonalPostsResponse {
 export class ListFoodPostsRequest extends jspb.Message {
   getFoodPlace(): foodPost_pb.Place;
   setFoodPlace(value: foodPost_pb.Place): ListFoodPostsRequest;
+  hasFoodPlace(): boolean;
+  clearFoodPlace(): ListFoodPostsRequest;
 
   getScoreLowbond(): number;
   setScoreLowbond(value: number): ListFoodPostsRequest;
@@ -323,16 +325,23 @@ export class ListFoodPostsRequest extends jspb.Message {
 
 export namespace ListFoodPostsRequest {
   export type AsObject = {
-    foodPlace: foodPost_pb.Place,
+    foodPlace?: foodPost_pb.Place,
     scoreLowbond: number,
     random: boolean,
     number: number,
+  }
+
+  export enum FoodPlaceCase { 
+    _FOOD_PLACE_NOT_SET = 0,
+    FOOD_PLACE = 1,
   }
 }
 
 export class ListSellPostsRequest extends jspb.Message {
   getGoodsType(): sellPost_pb.GoodsType;
   setGoodsType(value: sellPost_pb.GoodsType): ListSellPostsRequest;
+  hasGoodsType(): boolean;
+  clearGoodsType(): ListSellPostsRequest;
 
   getPriceUpbond(): number;
   setPriceUpbond(value: number): ListSellPostsRequest;
@@ -350,15 +359,22 @@ export class ListSellPostsRequest extends jspb.Message {
 
 export namespace ListSellPostsRequest {
   export type AsObject = {
-    goodsType: sellPost_pb.GoodsType,
+    goodsType?: sellPost_pb.GoodsType,
     priceUpbond: number,
     number: number,
+  }
+
+  export enum GoodsTypeCase { 
+    _GOODS_TYPE_NOT_SET = 0,
+    GOODS_TYPE = 1,
   }
 }
 
 export class ListAmusementPostsRequest extends jspb.Message {
   getGameType(): amusementPost_pb.GameType;
   setGameType(value: amusementPost_pb.GameType): ListAmusementPostsRequest;
+  hasGameType(): boolean;
+  clearGameType(): ListAmusementPostsRequest;
 
   getPeopleAllLowbound(): number;
   setPeopleAllLowbound(value: number): ListAmusementPostsRequest;
@@ -371,6 +387,8 @@ export class ListAmusementPostsRequest extends jspb.Message {
 
   getTimeAbout(): number;
   setTimeAbout(value: number): ListAmusementPostsRequest;
+  hasTimeAbout(): boolean;
+  clearTimeAbout(): ListAmusementPostsRequest;
 
   getNumber(): number;
   setNumber(value: number): ListAmusementPostsRequest;
@@ -385,12 +403,22 @@ export class ListAmusementPostsRequest extends jspb.Message {
 
 export namespace ListAmusementPostsRequest {
   export type AsObject = {
-    gameType: amusementPost_pb.GameType,
+    gameType?: amusementPost_pb.GameType,
     peopleAllLowbound: number,
     peopleAllUpbound: number,
     peopleDiffUpbound: number,
-    timeAbout: number,
+    timeAbout?: number,
     number: number,
+  }
+
+  export enum GameTypeCase { 
+    _GAME_TYPE_NOT_SET = 0,
+    GAME_TYPE = 1,
+  }
+
+  export enum TimeAboutCase { 
+    _TIME_ABOUT_NOT_SET = 0,
+    TIME_ABOUT = 5,
   }
 }
 

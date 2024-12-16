@@ -168,5 +168,91 @@ export class AuthClient {
     this.methodDescriptorGetUser);
   }
 
+  methodDescriptorChangeIcon = new grpcWeb.MethodDescriptor(
+    '/auth.Auth/ChangeIcon',
+    grpcWeb.MethodType.UNARY,
+    auth_pb.ChangeIconRequest,
+    auth_pb.ChangeIconResponse,
+    (request: auth_pb.ChangeIconRequest) => {
+      return request.serializeBinary();
+    },
+    auth_pb.ChangeIconResponse.deserializeBinary
+  );
+
+  changeIcon(
+    request: auth_pb.ChangeIconRequest,
+    metadata?: grpcWeb.Metadata | null): Promise<auth_pb.ChangeIconResponse>;
+
+  changeIcon(
+    request: auth_pb.ChangeIconRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback: (err: grpcWeb.RpcError,
+               response: auth_pb.ChangeIconResponse) => void): grpcWeb.ClientReadableStream<auth_pb.ChangeIconResponse>;
+
+  changeIcon(
+    request: auth_pb.ChangeIconRequest,
+    metadata?: grpcWeb.Metadata | null,
+    callback?: (err: grpcWeb.RpcError,
+               response: auth_pb.ChangeIconResponse) => void) {
+    if (callback !== undefined) {
+      return this.client_.rpcCall(
+        this.hostname_ +
+          '/auth.Auth/ChangeIcon',
+        request,
+        metadata || {},
+        this.methodDescriptorChangeIcon,
+        callback);
+    }
+    return this.client_.unaryCall(
+    this.hostname_ +
+      '/auth.Auth/ChangeIcon',
+    request,
+    metadata || {},
+    this.methodDescriptorChangeIcon);
+  }
+
+  methodDescriptorChangeUsername = new grpcWeb.MethodDescriptor(
+    '/auth.Auth/ChangeUsername',
+    grpcWeb.MethodType.UNARY,
+    auth_pb.ChangeUsernameRequest,
+    auth_pb.ChangeUsernameResponse,
+    (request: auth_pb.ChangeUsernameRequest) => {
+      return request.serializeBinary();
+    },
+    auth_pb.ChangeUsernameResponse.deserializeBinary
+  );
+
+  changeUsername(
+    request: auth_pb.ChangeUsernameRequest,
+    metadata?: grpcWeb.Metadata | null): Promise<auth_pb.ChangeUsernameResponse>;
+
+  changeUsername(
+    request: auth_pb.ChangeUsernameRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback: (err: grpcWeb.RpcError,
+               response: auth_pb.ChangeUsernameResponse) => void): grpcWeb.ClientReadableStream<auth_pb.ChangeUsernameResponse>;
+
+  changeUsername(
+    request: auth_pb.ChangeUsernameRequest,
+    metadata?: grpcWeb.Metadata | null,
+    callback?: (err: grpcWeb.RpcError,
+               response: auth_pb.ChangeUsernameResponse) => void) {
+    if (callback !== undefined) {
+      return this.client_.rpcCall(
+        this.hostname_ +
+          '/auth.Auth/ChangeUsername',
+        request,
+        metadata || {},
+        this.methodDescriptorChangeUsername,
+        callback);
+    }
+    return this.client_.unaryCall(
+    this.hostname_ +
+      '/auth.Auth/ChangeUsername',
+    request,
+    metadata || {},
+    this.methodDescriptorChangeUsername);
+  }
+
 }
 

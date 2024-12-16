@@ -9,8 +9,8 @@ export class FoodPost extends jspb.Message {
   hasPost(): boolean;
   clearPost(): FoodPost;
 
-  getPlace(): Place;
-  setPlace(value: Place): FoodPost;
+  getFoodPlace(): Place;
+  setFoodPlace(value: Place): FoodPost;
 
   getScore(): number;
   setScore(value: number): FoodPost;
@@ -26,7 +26,7 @@ export class FoodPost extends jspb.Message {
 export namespace FoodPost {
   export type AsObject = {
     post?: post_pb.Post.AsObject,
-    place: Place,
+    foodPlace: Place,
     score: number,
   }
 }

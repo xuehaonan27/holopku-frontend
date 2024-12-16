@@ -3146,8 +3146,8 @@ proto.forum.ListFoodPostsRequest.prototype.serializeBinary = function() {
  */
 proto.forum.ListFoodPostsRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = message.getFoodPlace();
-  if (f !== 0.0) {
+  f = /** @type {!proto.foodPost.Place} */ (jspb.Message.getField(message, 1));
+  if (f != null) {
     writer.writeEnum(
       1,
       f
@@ -3191,7 +3191,25 @@ proto.forum.ListFoodPostsRequest.prototype.getFoodPlace = function() {
  * @return {!proto.forum.ListFoodPostsRequest} returns this
  */
 proto.forum.ListFoodPostsRequest.prototype.setFoodPlace = function(value) {
-  return jspb.Message.setProto3EnumField(this, 1, value);
+  return jspb.Message.setField(this, 1, value);
+};
+
+
+/**
+ * Clears the field making it undefined.
+ * @return {!proto.forum.ListFoodPostsRequest} returns this
+ */
+proto.forum.ListFoodPostsRequest.prototype.clearFoodPlace = function() {
+  return jspb.Message.setField(this, 1, undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.forum.ListFoodPostsRequest.prototype.hasFoodPlace = function() {
+  return jspb.Message.getField(this, 1) != null;
 };
 
 
@@ -3361,8 +3379,8 @@ proto.forum.ListSellPostsRequest.prototype.serializeBinary = function() {
  */
 proto.forum.ListSellPostsRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = message.getGoodsType();
-  if (f !== 0.0) {
+  f = /** @type {!proto.sellPost.GoodsType} */ (jspb.Message.getField(message, 1));
+  if (f != null) {
     writer.writeEnum(
       1,
       f
@@ -3399,7 +3417,25 @@ proto.forum.ListSellPostsRequest.prototype.getGoodsType = function() {
  * @return {!proto.forum.ListSellPostsRequest} returns this
  */
 proto.forum.ListSellPostsRequest.prototype.setGoodsType = function(value) {
-  return jspb.Message.setProto3EnumField(this, 1, value);
+  return jspb.Message.setField(this, 1, value);
+};
+
+
+/**
+ * Clears the field making it undefined.
+ * @return {!proto.forum.ListSellPostsRequest} returns this
+ */
+proto.forum.ListSellPostsRequest.prototype.clearGoodsType = function() {
+  return jspb.Message.setField(this, 1, undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.forum.ListSellPostsRequest.prototype.hasGoodsType = function() {
+  return jspb.Message.getField(this, 1) != null;
 };
 
 
@@ -3530,7 +3566,7 @@ proto.forum.ListAmusementPostsRequest.deserializeBinaryFromReader = function(msg
       msg.setPeopleDiffUpbound(value);
       break;
     case 5:
-      var value = /** @type {number} */ (reader.readInt32());
+      var value = /** @type {number} */ (reader.readInt64());
       msg.setTimeAbout(value);
       break;
     case 6:
@@ -3566,8 +3602,8 @@ proto.forum.ListAmusementPostsRequest.prototype.serializeBinary = function() {
  */
 proto.forum.ListAmusementPostsRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = message.getGameType();
-  if (f !== 0.0) {
+  f = /** @type {!proto.amusementPost.GameType} */ (jspb.Message.getField(message, 1));
+  if (f != null) {
     writer.writeEnum(
       1,
       f
@@ -3594,9 +3630,9 @@ proto.forum.ListAmusementPostsRequest.serializeBinaryToWriter = function(message
       f
     );
   }
-  f = message.getTimeAbout();
-  if (f !== 0) {
-    writer.writeInt32(
+  f = /** @type {number} */ (jspb.Message.getField(message, 5));
+  if (f != null) {
+    writer.writeInt64(
       5,
       f
     );
@@ -3625,7 +3661,25 @@ proto.forum.ListAmusementPostsRequest.prototype.getGameType = function() {
  * @return {!proto.forum.ListAmusementPostsRequest} returns this
  */
 proto.forum.ListAmusementPostsRequest.prototype.setGameType = function(value) {
-  return jspb.Message.setProto3EnumField(this, 1, value);
+  return jspb.Message.setField(this, 1, value);
+};
+
+
+/**
+ * Clears the field making it undefined.
+ * @return {!proto.forum.ListAmusementPostsRequest} returns this
+ */
+proto.forum.ListAmusementPostsRequest.prototype.clearGameType = function() {
+  return jspb.Message.setField(this, 1, undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.forum.ListAmusementPostsRequest.prototype.hasGameType = function() {
+  return jspb.Message.getField(this, 1) != null;
 };
 
 
@@ -3684,7 +3738,7 @@ proto.forum.ListAmusementPostsRequest.prototype.setPeopleDiffUpbound = function(
 
 
 /**
- * optional int32 time_about = 5;
+ * optional int64 time_about = 5;
  * @return {number}
  */
 proto.forum.ListAmusementPostsRequest.prototype.getTimeAbout = function() {
@@ -3697,7 +3751,25 @@ proto.forum.ListAmusementPostsRequest.prototype.getTimeAbout = function() {
  * @return {!proto.forum.ListAmusementPostsRequest} returns this
  */
 proto.forum.ListAmusementPostsRequest.prototype.setTimeAbout = function(value) {
-  return jspb.Message.setProto3IntField(this, 5, value);
+  return jspb.Message.setField(this, 5, value);
+};
+
+
+/**
+ * Clears the field making it undefined.
+ * @return {!proto.forum.ListAmusementPostsRequest} returns this
+ */
+proto.forum.ListAmusementPostsRequest.prototype.clearTimeAbout = function() {
+  return jspb.Message.setField(this, 5, undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.forum.ListAmusementPostsRequest.prototype.hasTimeAbout = function() {
+  return jspb.Message.getField(this, 5) != null;
 };
 
 

@@ -1,17 +1,4 @@
-/* styles.css */
-
-/* 设置基本的字体和背景 */
-/* body, html {
-    height: 100%;
-    margin: 0;
-    font-family: 'Arial', sans-serif;
  
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center; 
-  } */
-  
   /* 设置论坛容器的样式 */
   .forum {
     display: flex;
@@ -23,11 +10,21 @@
     background-position: center;
     align-items: center;
     flex-wrap: wrap;
-    gap: 20px; /* 给按钮之间增加一些间距 */
   }
   
+  .sections{
+    display: flex;
+    width: 100vw;
+    justify-content: center;
+    background-size: cover;
+    background-position: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px; /* 给按钮之间增加一些间距 */
+
+  }
   /* 设置按钮的基本样式 */
-  .forum button {
+  .sections button {
     font-size: 20px; /* 增加字体大小 */
     font-weight: bold; /* 字体加粗 */
     color: #fff; /* 设置字体颜色 */
@@ -66,14 +63,16 @@
     background-image: url('../../../imgs/amusement.jpg'); /* 替换为你的校内外娱乐按钮背景图路径 */
   }
   
-  /* 使用Google字体，例如使用'Roboto'字体
-  @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
-  
-  /* 将Roboto字体应用到按钮上 */
-  /*body, html {
-    font-family: 'Roboto', sans-serif;
+  .personalPage {
+    padding: 5px 10px;
+    font-size: 15px;
+    font-weight: bold;
+    height: 50px;
+    width:80%;
+    color: #fff;
+    background-color: #d92424; 
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
   }
-  
-  button {
-    font-family: 'Roboto', sans-serif;
-  } */

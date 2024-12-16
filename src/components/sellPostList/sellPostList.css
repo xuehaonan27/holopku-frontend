@@ -1,7 +1,7 @@
 /* styles.css */
 
 /* 设置基本的字体和背景 */
-.FoodList {
+.SellList {
     height: auto;
     min-height: 100vh ;
     margin: 0;
@@ -18,14 +18,14 @@
   }
  
   /* 帖子列表样式 */
-  .FoodPosts {
+  .SellPosts {
     width: 100vw; /* 占满屏幕宽度 */
     display: flex;
     flex-direction: column;
     align-items: center;
   }
   
-  .FoodPosts div {
+  .SellPosts div {
     width: 95%; /* 帖子宽度占满屏幕的95% */
     background-color: rgba(255, 255, 255, 0.8); /* 半透明背景 */
     margin: 10px 0;
@@ -51,18 +51,18 @@
     float:right;
   }
   
-  .opt .foodPlace{
+  .opt .SellPlace{
     margin-left:20px;
   }
   
 
   /* 帖子标题和内容样式 */
-  .FoodPosts h2 {
+  .SellPosts h2 {
     margin: 0 0 10px 0;
     color: #d92424; /* 北大红 */
   }
   
-  .FoodPosts .content {
+  .SellPosts .content {
     margin-bottom: 10px;
     color: #333;
   }
@@ -143,7 +143,7 @@
   }
 
   
-  .FoodList button:hover {
+  .SellList button:hover {
     background-color: #b21e1e; 
   }
   

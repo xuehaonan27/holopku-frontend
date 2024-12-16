@@ -1,0 +1,71 @@
+.userInf {
+    height:auto;
+    width: auto;
+    background-image: url('../../../imgs/zhanwei.jpg');
+    min-height: 100vh;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; 
+    align-items: center;
+    word-break: break-word;
+
+}
+
+.personalInf{
+    width: 90%; 
+    align-items: center;
+    border: 2px solid #e0e0e0;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.name {
+    margin-top: 0;
+    color: #333;
+    font-size: 1.5em;
+}
+
+.myFavor {
+    padding: 5px 10px;
+    font-size: 15px;
+    font-weight: bold;
+    height: 50px;
+    width:90%;
+    color: #fff;
+    background-color: #f2cd47; 
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+  }
+
+  .myOwn {
+    padding: 5px 10px;
+    font-size: 15px;
+    font-weight: bold;
+    height: 50px;
+    width:90%;
+    color: #fff;
+    background-color: #d92424; 
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+  }
+
+  .unLogin {
+    padding: 5px 10px;
+    font-size: 15px;
+    font-weight: bold;
+    height: 50px;
+    width:90%;
+    color: #fff;
+    background-color: #6dd5c2; 
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+  }

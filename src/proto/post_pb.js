@@ -109,7 +109,7 @@ proto.post.Post.toObject = function(includeInstance, msg) {
     updatedAt: jspb.Message.getFieldWithDefault(msg, 10, 0),
     commentsList: jspb.Message.toObjectList(msg.getCommentsList(),
     proto.post.Comment.toObject, includeInstance),
-    imagesList: (f = jspb.Message.getRepeatedField(msg, 5)) == null ? undefined : f,
+    imagesList: msg.getImagesList_asB64(),
     postType: jspb.Message.getFieldWithDefault(msg, 11, 0)
   };
 
@@ -172,11 +172,11 @@ proto.post.Post.deserializeBinaryFromReader = function(msg, reader) {
       msg.setFavorates(value);
       break;
     case 9:
-      var value = /** @type {number} */ (reader.readInt32());
+      var value = /** @type {number} */ (reader.readInt64());
       msg.setCreatedAt(value);
       break;
     case 10:
-      var value = /** @type {number} */ (reader.readInt32());
+      var value = /** @type {number} */ (reader.readInt64());
       msg.setUpdatedAt(value);
       break;
     case 8:
@@ -185,7 +185,7 @@ proto.post.Post.deserializeBinaryFromReader = function(msg, reader) {
       msg.addComments(value);
       break;
     case 5:
-      var value = /** @type {string} */ (reader.readString());
+      var value = /** @type {!Uint8Array} */ (reader.readBytes());
       msg.addImages(value);
       break;
     case 11:
@@ -265,14 +265,14 @@ proto.post.Post.serializeBinaryToWriter = function(message, writer) {
   }
   f = message.getCreatedAt();
   if (f !== 0) {
-    writer.writeInt32(
+    writer.writeInt64(
       9,
       f
     );
   }
   f = /** @type {number} */ (jspb.Message.getField(message, 10));
   if (f != null) {
-    writer.writeInt32(
+    writer.writeInt64(
       10,
       f
     );
@@ -285,9 +285,9 @@ proto.post.Post.serializeBinaryToWriter = function(message, writer) {
       proto.post.Comment.serializeBinaryToWriter
     );
   }
-  f = message.getImagesList();
+  f = message.getImagesList_asU8();
   if (f.length > 0) {
-    writer.writeRepeatedString(
+    writer.writeRepeatedBytes(
       5,
       f
     );
@@ -411,7 +411,7 @@ proto.post.Post.prototype.setFavorates = function(value) {
 
 
 /**
- * optional int32 created_at = 9;
+ * optional int64 created_at = 9;
  * @return {number}
  */
 proto.post.Post.prototype.getCreatedAt = function() {
@@ -429,7 +429,7 @@ proto.post.Post.prototype.setCreatedAt = function(value) {
 
 
 /**
- * optional int32 updated_at = 10;
+ * optional int64 updated_at = 10;
  * @return {number}
  */
 proto.post.Post.prototype.getUpdatedAt = function() {
@@ -503,16 +503,40 @@ proto.post.Post.prototype.clearCommentsList = function() {
 
 
 /**
- * repeated string images = 5;
- * @return {!Array<string>}
+ * repeated bytes images = 5;
+ * @return {!(Array<!Uint8Array>|Array<string>)}
  */
 proto.post.Post.prototype.getImagesList = function() {
-  return /** @type {!Array<string>} */ (jspb.Message.getRepeatedField(this, 5));
+  return /** @type {!(Array<!Uint8Array>|Array<string>)} */ (jspb.Message.getRepeatedField(this, 5));
 };
 
 
 /**
- * @param {!Array<string>} value
+ * repeated bytes images = 5;
+ * This is a type-conversion wrapper around `getImagesList()`
+ * @return {!Array<string>}
+ */
+proto.post.Post.prototype.getImagesList_asB64 = function() {
+  return /** @type {!Array<string>} */ (jspb.Message.bytesListAsB64(
+      this.getImagesList()));
+};
+
+
+/**
+ * repeated bytes images = 5;
+ * Note that Uint8Array is not supported on all browsers.
+ * @see http://caniuse.com/Uint8Array
+ * This is a type-conversion wrapper around `getImagesList()`
+ * @return {!Array<!Uint8Array>}
+ */
+proto.post.Post.prototype.getImagesList_asU8 = function() {
+  return /** @type {!Array<!Uint8Array>} */ (jspb.Message.bytesListAsU8(
+      this.getImagesList()));
+};
+
+
+/**
+ * @param {!(Array<!Uint8Array>|Array<string>)} value
  * @return {!proto.post.Post} returns this
  */
 proto.post.Post.prototype.setImagesList = function(value) {
@@ -521,7 +545,7 @@ proto.post.Post.prototype.setImagesList = function(value) {
 
 
 /**
- * @param {string} value
+ * @param {!(string|Uint8Array)} value
  * @param {number=} opt_index
  * @return {!proto.post.Post} returns this
  */

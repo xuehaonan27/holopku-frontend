@@ -14,7 +14,7 @@ const StarRating=({score}:{score:number}) => {
     );
   }
 
-  return <span className="rating">{stars}</span>;
+  return <span className='rating'>{stars}</span>;
 };
 
 export default StarRating;
