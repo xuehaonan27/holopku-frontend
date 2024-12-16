@@ -1,4 +1,4 @@
-.showAmusementPost {
+.showAmusePost {
     height:auto;
     width: auto;
     background-image: url('../../../imgs/zhanwei.jpg');
@@ -10,7 +10,7 @@
     word-break: break-word;
 
 }
-.AmusementPost {
+.AmusePost {
     width: 90%; 
     align-items: center;
     border: 2px solid #e0e0e0;
@@ -21,10 +21,76 @@
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-.AmusementPost h2 {
+.AmusePost h2 {
     margin-top: 0;
     color: #333;
     font-size: 1.5em;
+}
+
+.userInfo {
+    margin-top: 8px;
+    color: #666;
+    font-size: 0.9em;
+    position: relative;
+
+}
+.icon{
+    clip-path: circle(50% at center);
+}
+
+.userName {
+    position: absolute;
+    margin-top: 8px;
+    margin-left: 10px;
+    color: #000000;
+    font-size: 1.5em;
+    top: 2px;
+}   
+
+.notFavored {
+    float: right;
+    display: inline-flex;
+    align-items: center;
+    font-size: 2.5em;
+    color: grey; /* 默认星星颜色 */
+    margin-right: 10px; /* 重置外边距 */
+    padding: 0; /* 重置内边距 */
+}
+.notFavored:hover {
+    color: gold; /* 鼠标悬停时星星颜色 */
+}
+
+.favored {
+    float: right;
+    display: inline-flex;
+    align-items: center;
+    font-size: 2.5em;
+    color: gold; /* 填充星星的颜色 */
+    margin-right: 10px; /* 重置外边距 */
+    padding: 0; /* 重置内边距 */
+}
+
+.notLiked {
+    float: right;
+    display: inline-flex;
+    align-items: center;
+    font-size: 2em;
+    color: grey; /* 默认星星颜色 */
+    margin-top: 7px; 
+    padding: 0; /* 重置内边距 */
+}
+.notLiked:hover {
+    color: red; /* 鼠标悬停时星星颜色 */
+}
+
+.liked {
+    float: right;
+    display: inline-flex;
+    align-items: center;
+    font-size: 2em;
+    color: red; /* 填充星星的颜色 */
+    margin-top: 7px; /* 重置外边距 */
+    padding: 0; /* 重置内边距 */
 }
 
 .content {

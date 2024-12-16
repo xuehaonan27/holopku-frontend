@@ -2,7 +2,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { AmusementPost, GameType } from '../../proto/amusementPost_pb'; 
 import { Comment } from '../../proto/post_pb';
 import { ForumClient } from '../../proto/ForumServiceClientPb';
-import {GetPostRequest} from '../../proto/forum_pb';
+import {FavorateRequest, GetPostRequest, LikePostRequest, UnfavorateRequest, UnlikePostRequest} from '../../proto/forum_pb';
 import { GetUserRequest, User } from '../../proto/auth_pb';
 import { useState } from 'react';
 import { AuthClient } from '../../proto/AuthServiceClientPb';
@@ -171,60 +171,85 @@ if(getPost){
    setGetPost(false);
 }
 
-    return <div className='showAmusementPost'>
-        <div className='AmusementPost'>
-        <button className='delete' onClick={()=>{
-                DeletePost(post.getPost()?.getId()!,client);
-                navigate('/amuse');
-            }}>删除帖子</button>
-        <h2>{post.getPost()?.getTitle()}</h2>
-        <div className='content'>
-            {post.getPost()?.getContent()}
-        </div>
-        <div className='place'>
-            地点: {post.getAmusePlace()}
-        </div>
-        <div className='time'>
-            时间={post.getStartTime()}
-        </div>  
-        <div className='type'>
-            游戏类型={GetType(post.getGameType())}
-        </div>  
-        <div className='people'>
-            需要人数={post.getPeopleAll()}
-            已有人数={post.getPeopleAlready()}
-        </div>  
-        <div className='contact'>
-            联系方式={post.getContact()}
-        </div>  
-        <div className='Comments'>
-            <h2>评论区</h2>
-            {comments.map((comment) => {
-                return <div key={comment.getId()} >
-                    {comment.getContent()}
-                    {<button onClick={
-                        ()=>{DeleteComment(id,comment.getId(),client,user.getId())
-                        setGetPost(true);
-                    }}>删除评论</button>}
-                    </div>
-            })}
-        </div>    
-        </div>
+return <div className='showAmusePost'>
+<div className='AmusePost'>
+{(post.getPost()?.getUserId()! === user.getId())&&
+<button className='delete' onClick={()=>{
+        DeletePost(post.getPost()?.getId()!,client);
+        navagate('/amuse');
+    }}>删除帖子</button>}
 
-        <div className='createComment'> 
-            <div className='inputContent'>
-                <textarea
-                    placeholder='发条友善的评论吧'
-                    value={content}
-                    onChange={(e) => setContent(e.target.value)}
-                />
+<h2>{post.getPost()?.getTitle()}</h2>
+<div className="userInfo">
+    <img src={ icon } className='icon' alt='头像' width='50' height='50' />
+    <span className='userName'>{userName}</span>
+</div>
+
+<div className='GameType'>
+    活动类型：{GetType(post.getGameType())}
+</div>
+
+<div className='People'>
+    已有人数/总人数：{post.getPeopleAlready()}/{post.getPeopleAll()}
+</div>  
+
+<div className='GameInfo'>
+    时间：{post.getStartTime()}   地点：{post.getAmusePlace()}
+</div>  
+
+<div className='Contact'>
+    联系方式：{post.getContact()}
+</div>  
+
+<div className='content'>
+    {post.getPost()?.getContent()}
+</div>
+<div className='showImg'>
+    {
+    imgList.map((img,index) => {
+        return <img src={img} id={index.toString()} alt='图片'   height='200'  />
+    })}
+<div className="likeAndFavor">
+    {(user.getLikedPostsList().includes(id))?<span className='liked' onClick={()=>unLikePost()}>❤</span>:<span className='notLiked' onClick={()=>likePost()}>❤</span>}
+    {(user.getFavoritePostsList().includes(id))?<span className="favored" onClick={()=>unFavorPost()}>★</span>:<span className='notFavored' onClick={()=>FavorPost()}>★</span>}
+</div>
+    
+</div>
+
+<div className='Comments'>
+    <h2>评论区</h2>
+    {comments.map((comment) => {
+        return <div key={comment.getId()} >
+            {comment.getContent()}
+            {(user.getId() === comment.getUserId())&&
+            <button onClick={
+                ()=>{DeleteComment(id,comment.getId(),client,user.getId())
+                setGetPost(true);setImgList([]);
+            }}>删除评论</button>
+        }
             </div>
-        <button onClick={()=>{
-            Submit(id,content,client,uid);
-            setContent('')
-            setGetPost(true);
-        }}>确认</button>
-      </div>
-        </div>
+    })}
+</div>    
+
+</div>
+
+<div className='createComment'> 
+    <div className='inputContent'>
+        <textarea
+            placeholder='发条友善的评论吧'
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+            rows={5}
+        />
+    </div>
+<button onClick={()=>{
+    Submit(id,content,client,user.getId());
+    setContent('');
+    setGetPost(true);
+    setImgList([]);
+}}>确认</button>
+</div>
+</div>
 }
+
 export default ShowAmusementPost;

@@ -46,7 +46,7 @@ function App() {
           <Route path="/sell" element={<SellList token={token!}/> } />
           <Route path="/sell/:index" element={<ShowSellPost /> } />
           <Route path="/amuse" element={<AmusementList token={token!}/> } />
-          <Route path="/amuse/:index" element={<ShowAmusementPost token={token!}/> } />
+          <Route path="/amuse/:index" element={<ShowAmusementPost /> } />
           <Route path="/user" element={<UserInf /> } />
 
 
