@@ -1,0 +1,227 @@
+/* styles.css */
+
+/* 设置基本的字体和背景 */
+.SellList {
+    height: auto;
+    min-height: 100vh ;
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background-image: url('../../../imgs/zhanwei.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 20px;
+  }
+ 
+  /* 帖子列表样式 */
+  .SellPosts {
+    width: 100vw; /* 占满屏幕宽度 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .SellPosts div {
+    width: 95%; /* 帖子宽度占满屏幕的95% */
+    background-color: rgba(255, 255, 255, 0.8); /* 半透明背景 */
+    margin: 10px 0;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    max-width: 1200px; /* 设置最大宽度 */
+    cursor: pointer; /* 点击时显示指针 */
+  }
+  
+  .opt {
+    width: 95%; /* 帖子宽度占满屏幕的95% */
+    background-color: rgba(255, 255, 255, 0.8); /* 半透明背景 */
+    margin: 10px 0;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    max-width: 1200px; /* 设置最大宽度 */
+    cursor: pointer; /* 点击时显示指针 */
+  }
+
+  .opt button{
+    float:right;
+  }
+  
+  .opt .SellPlace{
+    margin-left:20px;
+  }
+  
+
+  /* 帖子标题和内容样式 */
+  .SellPosts h2 {
+    margin: 0 0 10px 0;
+    color: #d92424; /* 北大红 */
+  }
+  
+  .SellPosts .content {
+    margin-bottom: 10px;
+    color: #333;
+  }
+  .content {
+    display: flex; /* 设置为flex容器 */
+    flex-direction: column; /* 子元素垂直排列 */
+    align-items: flex-start; /* 垂直方向上对齐到起始位置（左对齐） */
+    width: 100%; /* 宽度占满整个容器 */
+    margin-top: 10px; /* 与标题保持一定距离 */
+    position: relative; /* 相对定位，用于绝对定位点赞和收藏 */
+}  
+  /* 点赞和收藏数样式 */
+  .favor {
+    /*position: absolute; /* 绝对定位 */
+    right: 10px; /* 距离右边10px */
+    bottom: 25px; /* 距离底部10px */
+    margin: 0; /* 移除默认的外边距 */
+    color: #555; /* 字体颜色 */
+    font-size: 12px; /* 字体大小 */
+  }
+  .like {
+    /*position: absolute; /* 绝对定位 */
+    right: 10px; /* 距离右边10px */
+    bottom: 10px; /* 距离底部10px */
+    margin: 0; /* 移除默认的外边距 */
+    color: #555; /* 字体颜色 */
+    font-size: 12px; /* 字体大小 */
+  }
+ p:not(.like):not(.favor) {
+    margin-bottom: 5px; /* 正文与其他元素的间距 */
+    bottom: 100px;
+  }
+  /* 删除帖子按钮样式 */
+  .delete {
+    padding: 5px 10px;
+    height: inherit;
+    font-size: 12px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #d92424; /* 北大红 */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    align-self: flex-start;
+  }
+  
+  .delete:hover {
+    background-color: #b21e1e; /* 深一点的北大红 */
+  }
+  
+  /* 发帖按钮样式 */
+  .createButton {
+    padding: 5px 10px;
+    font-size: 15px;
+    font-weight: bold;
+    height: 50px;
+    width:80%;
+    color: #fff;
+    background-color: #d92424; 
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+  }
+  .return {
+    padding: 5px 10px;
+    font-size: 15px;
+    font-weight: bold;
+    height: 50px;
+    width:80%;
+    color: #fff;
+    background-color: #6dd5c2; 
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+  }
+
+  
+  .SellList button:hover {
+    background-color: #b21e1e; 
+  }
+  
+  /* 发帖小组件样式 */
+  .create {
+    background-color: rgba(255, 255, 255, 0.9); /* 半透明背景 */
+    width: 80%; /* 占满屏幕宽度的95% */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* 设置组件之间的间距 */
+  }
+  
+  /* 输入框和选择框样式 */
+
+  .content textarea{
+    width: 100%; /* 宽度占满整个容器 */
+    padding: 10px; /* 内边距，提供更好的点击区域 */
+    border: 1px solid #ccc; /* 边框 */
+    border-radius: 5px; /* 圆角边框 */
+    font-size: 16px; /* 字体大小 */
+    box-sizing: border-box; /* 边框和内边距包含在宽度内 */
+    height: auto; /* 自动高度，根据内容调整 */
+    min-height: 100px; /* 最小高度，确保有足够的空间输入 */
+    max-height: 200px; /* 最大高度，防止输入框过大 */
+    resize: vertical; /* 允许垂直方向上调整大小 */
+  }
+  
+  .create input,
+  .create select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #d92424; /* 北大红边框 */
+    border-radius: 5px;
+    font-size: 14px;
+  }
+  
+  /* 评价组件样式 */
+  .create .rate {
+    display: flex;
+    align-items: center;
+  }
+  
+  /* 提交和关闭按钮样式 */
+  .buttons{
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .buttons button {
+    padding: 5px;
+    font-size: 12px;
+    height: auto;
+    width: 40%;
+    cursor: pointer;
+    margin: 5px 0;
+    padding: 10px; /* 内边距，提供更好的点击区域 */
+    border: 1px solid #ccc; /* 边框 */
+    border-radius: 5px; /* 圆角边框 */
+    box-sizing: border-box; /* 边框和内边距包含在宽度内 */
+    color:white;
+    font-weight:bold;
+  }
+  
+ .submit {
+    background-color: #28a745; /* 绿色 */
+  }
+  
+ .close {
+    background-color: #dc3545; /* 红色 */
+  }
+  
+ .submit :hover {
+    background-color: #218838;
+  }
+  
+ .close:hover {
+    background-color: #c82333;
+  }

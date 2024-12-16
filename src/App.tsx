@@ -43,7 +43,7 @@ function App() {
           <Route path="/home" element={<ShowForum />} />
           <Route path="/food" element={<FoodList /> } />
           <Route path="/food/:index" element={<ShowFoodPost /> } />
-          <Route path="/sell" element={<SellList token={token!}/> } />
+          <Route path="/sell" element={<SellList/> } />
           <Route path="/sell/:index" element={<ShowSellPost /> } />
           <Route path="/amuse" element={<AmusementList token={token!}/> } />
           <Route path="/amuse/:index" element={<ShowAmusementPost /> } />
