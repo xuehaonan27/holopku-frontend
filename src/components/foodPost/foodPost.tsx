@@ -166,8 +166,8 @@ const unFavorPost=()=>{
     })
 
 } 
+
 if(getPost){
-    //setImgList([]);
     getUser();
     setTimeout(GetPost,100);
    setGetPost(false);

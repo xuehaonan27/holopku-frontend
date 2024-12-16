@@ -140,8 +140,8 @@ const AmusementList = ({token}:{token:string | Uint8Array}) => {
             }}>
                 <option value='WolfKill'>狼人杀</option>
                 <option value='JvBen'>剧本杀</option>
-                <option value='BloodTower'>不知道是什么</option>
-                <option value='Karaok'>不知道是什么</option>
+                <option value='BloodTower'>血染钟楼</option>
+                <option value='Karaok'>卡拉OK</option>
                 <option value='BoardGame'>桌游</option>
                 <option value='Sports'>运动</option>
                 <option value='Riding'>骑行</option>

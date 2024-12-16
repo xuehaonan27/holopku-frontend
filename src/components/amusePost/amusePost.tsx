@@ -7,35 +7,36 @@ import { GetUserRequest, User } from '../../proto/auth_pb';
 import { useState } from 'react';
 import { AuthClient } from '../../proto/AuthServiceClientPb';
 import { Submit,DeleteComment } from '../../functions/comment';
-import { DeletePost } from '../../functions/post';
+import { changeImg, DeletePost } from '../../functions/post';
 import './amusePost.css'
 const auth = new AuthClient('http://localhost:8080');
 const client = new ForumClient('http://localhost:8080');
 
-const ShowAmusementPost = ({token}:{token:string | Uint8Array}) => {
-    const myuser=new User();
-    const [user,setUser]=useState(myuser);
-    const [uid,setUid]=useState(0);
-    const Comments:Comment[]=[];
-    const [comments,setComments]=useState(Comments);
-    const [content,setContent]=useState('');
-    const Post=new AmusementPost();
-    const [state,setState]=useState(false);
-    const [getPost,setGetPost]=useState(true);
-    const [post,setPost]=useState(Post);
-    const location = useLocation();
-    const id = location.state ? location.state.id: undefined;
-    const navigate=useNavigate();
+const ShowAmusementPost = () => {
+
+    const [user,setUser]=useState<User>(new User());
+        const [comments,setComments]=useState<Comment[]>([]);
+        const [content,setContent]=useState('');
+        const [getPost,setGetPost]=useState(true);
+        const [post,setPost]=useState<AmusementPost>(new AmusementPost());
+        const [imgList,setImgList]=useState<string[]>([]);
+        const [icon,setIcon]=useState('');
+        const [userName,setUserName]=useState('');
+        const location = useLocation();
+        const navagate = useNavigate();
+        const id = location.state ? location.state.id: undefined;
+        const token = JSON.parse(localStorage.getItem('token')!);
+        const uid=JSON.parse(localStorage.getItem('uid')!);
 
 const getUser=()=>{
+    console.log(uid);
         const request=new GetUserRequest();
-        request.setUserId(uid);
+        request.setUserId(uid)
         auth.getUser(request,{},(err,response)=>{
             if(err){
                 console.log(err);
             }else{
                 setUser(response.getUser()!);
-                setUid(response.getUser()!.getId());
             }
         })
     
@@ -48,7 +49,7 @@ const GetType=(type:number)=>{
         case GameType.JVBEN:
             return '剧本杀';
         case GameType.BLOODTOWER:
-            return '血战塔';
+            return '血染钟楼';
         case GameType.KARAOK:
             return '卡拉OK';
         case GameType.BOARDGAME:
@@ -60,30 +61,109 @@ const GetType=(type:number)=>{
         case GameType.OTHER:
             return '其他';
         default:
-            return '其他';
+            return '不限';
     }
 }
 
 const GetPost=()=>{
     const request=new GetPostRequest();
-    request.setPostId(id);
-    
+    request.setPostId(id)
     client.getAmusementPost(request,{},(err,response)=>{
         if(err){
             console.log(err);
-            setState(false);
         }else{
             
            if(response.getSuccess()){
                 setPost(response.getPost()!);
-                setState(true);
                 setComments(response.getPost()!.getPost()?.getCommentsList()!);
-           }else{
-                setState(false);
+                response.getPost()!.getPost()!.getImagesList().map((img)=>{
+                    if(typeof img === 'string'){
+                        setImgList([...imgList,changeImg(img)]);
+                    }else{
+                        setImgList([...imgList,changeImg(new TextDecoder().decode(img))]);
+                    }
+                })
+                const userId=response.getPost()!.getPost()!.getUserId();
+                const request1=new GetUserRequest();
+        request1.setUserId(userId)
+        auth.getUser(request1,{},(err,response1)=>{
+            if(err){
+                console.log(err);
+            }else{
+                const img0=response1.getUser()!.getIcon();
+                if(typeof img0 === 'string'){
+                    setIcon(changeImg(img0));
+                }else{
+                    //console.log(new TextDecoder("utf-8").decode(img0));
+                    setIcon(changeImg(new TextDecoder("utf-8").decode(img0)));
+                }
+                setUserName(response1.getUser()!.getUsername());
+            }
+        })
            }
+    }
+})
+}
+
+const likePost=()=>{
+    const request=new LikePostRequest();
+    request.setPostId(id);
+    request.setUserId(user.getId()!);
+    console.log(request);
+    client.likePost(request,{},(err,response)=>{
+        if(err){
+            console.log(err);
+        }
+        else{
+            getUser();
         }
     })
-}
+} 
+
+const unLikePost=()=>{
+    const request=new UnlikePostRequest();
+    request.setPostId(id);
+    request.setUserId(user.getId());
+    client.unlikePost(request,{},(err,response)=>{
+        if(err){
+            console.log(err);
+        }
+        else{
+            getUser();
+        }
+    })
+
+} 
+
+const FavorPost=()=>{
+    const request=new FavorateRequest();
+    request.setPostId(id);
+    request.setUserId(user.getId()!);
+    console.log(request);
+    client.favorate(request,{},(err,response)=>{
+        if(err){
+            console.log(err);
+        }
+        else{
+            getUser();
+        }
+    })
+} 
+
+const unFavorPost=()=>{
+    const request=new UnfavorateRequest();
+    request.setPostId(id);
+    request.setUserId(user.getId());
+    client.unfavorate(request,{},(err,response)=>{
+        if(err){
+            console.log(err);
+        }
+        else{
+            getUser();
+        }
+    })
+
+} 
 
 if(getPost){
     setTimeout(GetPost,100);
