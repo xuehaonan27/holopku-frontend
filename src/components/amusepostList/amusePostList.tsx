@@ -284,6 +284,7 @@ const AmusementList = () => {
             </div>
         
       </div>)}
+      <button className="return" onClick={()=>{localStorage.setItem("type",JSON.stringify(0));navigate("/home")}}>返回首页</button>
         </div>
     
 }
