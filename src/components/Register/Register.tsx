@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { AuthClient } from '../../proto/AuthServiceClientPb';
 import { LoginProvider, RegisterRequest } from '../../proto/auth_pb';
 import { useNavigate } from 'react-router-dom';
+import { myHash } from '../../functions/comment';
 import './Register.css';
 const client = new AuthClient('http://localhost:8080', null, null);
 const Register = () => {
@@ -25,13 +26,16 @@ const Register = () => {
             alert('两次密码不一致');
             return;
         }
-        request.setPassword(password);
+        request.setPassword(myHash(password));
         request.setEmail(email);
         request.setAuthProvider(LoginProvider.PASSWORD);
         client.register(request, {}, (err, response) => {
             if (err) {
                 alert('用户名已存在');
             } else {
+                setUsername('');
+                setPassword('');
+                setPassword1('');
                 navigate('/');
             }
         });
