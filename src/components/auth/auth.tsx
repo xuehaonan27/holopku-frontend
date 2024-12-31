@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { LoginProvider, LoginRequest, User } from '../../proto/auth_pb';
 import { AuthClient } from '../../proto/AuthServiceClientPb';
 import { useNavigate } from 'react-router-dom';
+import { myHash } from '../../functions/comment';
 import './auth.css';
 
 const client = new AuthClient('http://localhost:8080', null, null);
@@ -16,7 +17,7 @@ const AuthService = ({ onLoginSuccess }: { onLoginSuccess: (token: string | Uint
   const handleSubmit = () => {
     const request = new LoginRequest();
     request.setUsername(username);
-    request.setPassword(password);
+    request.setPassword(myHash(password));
     request.setAuthProvider(LoginProvider.PASSWORD);
 
     client.login(request, {}, (err, response) => {
